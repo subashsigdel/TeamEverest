@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/adminLogin.css">
     <title>Document</title>
 </head>
 <body>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 
+    <script src="assets/js/adminLogin.js" defer></script>
 <div class="wrapper">
 	<div class="header">
 		<ul>
@@ -30,7 +32,7 @@
 	</div>
 	<div class="form_wrap">
 		<div class="form_1 data_info">
-			<h2>Signup Info</h2>
+			<h2>Personal Info</h2>
 			<form>
 				<div class="form_container">
 					<div class="input_wrap">
@@ -49,39 +51,98 @@
 			</form>
 		</div>
 		<div class="form_2 data_info" style="display: none;">
-			<h2>Personal Info</h2>
+			<h2>Parking Information</h2>
 			<form>
 				<div class="form_container">
 					<div class="input_wrap">
-						<label for="user_name">User Name</label>
-						<input type="text" name="User Name" class="input" id="user_name">
+						<label for="idSelect">Registration Type</label>
+
+                        <select id="idSelect" class="select" name="idSelect">
+                            <option  disabled selected>Select Your Registration Type:</option>
+                            <option>Person</option>
+                            <option>Organization</option>
+                          </select>
+					</div>
+
+					<div class="input_wrap">
+						<label for="car_slots">Available Car Slots:</label>
+						<input type="number" name="car_slots" class="input" id="car_slots">
 					</div>
 					<div class="input_wrap">
-						<label for="first_name">First Name</label>
-						<input type="text" name="First Name" class="input" id="first_name">
+						<label for="bike_slots">Available Bike Slots:</label>
+						<input type="number" name="bike_slots" class="input" id="bike_slots">
 					</div>
 					<div class="input_wrap">
-						<label for="last_name">Last Name</label>
-						<input type="text" name="Last Name" class="input" id="last_name">
+						<label for="bike_cost">Hourly Bike Parking Cost</label>
+						<input type="text" name="bike_cost" class="input" id="bike_cost">
 					</div>
+
+					<div class="input_wrap">
+						<label for="car_cost">Hourly Car Parking Cost</label>
+						<input type="text" name="car_cost" class="input" id="car_cost">
+					</div>
+
+					<div class="input_wrap">
+						<input type="checkbox" id="fullTime" name="full_time" value="full_time" onclick="checkFunction()">
+                        <label for="full_time">24 Hour availability</label><br>
+					</div>
+
+					<div class="input_wrap" id="startTime">
+                        <label for="start_time">Start Time</label><br>
+						<input type="time"  name="start_time" value="start_time" class="input">
+					</div>
+					<div class="input_wrap"  id="endTime" >
+                        <label for="end_time">End Time</label><br>
+						<input type="time" name="end_time" value="end_time" class="input">
+					</div>
+					
 				</div>
 			</form>
 		</div>
 		<div class="form_3 data_info" style="display: none;">
-			<h2>Professional Info</h2>
+			<h2>Owner's KYC</h2>
 			<form>
 				<div class="form_container">
-					<div class="input_wrap">
-						<label for="company">Current Company</label>
-						<input type="text" name="Current Company" class="input" id="company">
+                    <div class="input_wrap">
+						<label for="phone">Full Name</label>
+						<input type="text" name="password" class="input" id="password">
 					</div>
+
+                    <div class="input_wrap">
+						<label for="phone">Contact Address</label>
+						<input type="text" name="password" class="input" id="password">
+					</div>
+
+                    <div class="input_wrap">
+						<label for="phone">Phone Number</label>
+						<input type="text" name="password" class="input" id="password">
+					</div>
+
 					<div class="input_wrap">
-						<label for="experience">Total Experience</label>
+						<label for="idSelect">Identification Type</label>
+
+                        <select id="idSelect" class="select" name="idSelect">
+                            <option  disabled selected>Select Your Id Type:</option>
+                            <option>Citizenship</option>
+                            <option>Passport</option>
+                            <option>National ID</option>
+                            <option>Driving licence</option>
+                          </select>                  
+						<!-- <input type="text" name="Current Company" class="input" id="company"> -->
+					</div>
+
+					<div class="input_wrap">
+						<label for="experience">Identification Number</label>
 						<input type="text" name="Total Experience" class="input" id="experience">
 					</div>
+
 					<div class="input_wrap">
-						<label for="designation">Designation</label>
-						<input type="text" name="Designation" class="input" id="designation">
+						<input type="checkbox" id="terms" name="terms" value="terms" style="display: inline;">
+                        <label for="terms"> I agree to the <a>terms and conditions.</a></label><br>
+					</div>
+                    <div class="input_wrap">
+						<input type="checkbox" id="privacy" name="privacy" value="privacy">
+                        <label for="privacy"> I agree to the <a>privacy policy.</a></label><br>
 					</div>
 				</div>
 			</form>
@@ -109,6 +170,22 @@
 		<p>You have successfully completed the process.</p>
 	</div>
 </div>
+<script>
 
+	// Function for hiding start and end task when the checkbox is ticked 
+	function checkFunction() {
+		var checkBox = document.getElementById("fullTime");
+
+		var timeInputStart = document.getElementById("startTime");
+		var timeInputEnd = document.getElementById("endTime");
+
+		if (checkBox.checked == true){
+			timeInputStart.style.display = "none";
+			timeInputEnd.style.display = "none";
+		} else {
+			text.style.display = "block";
+		}
+	}
+</script>
 </body>
 </html>
