@@ -25,12 +25,11 @@
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-                        <li class="nav__item"><a href="#share" class="nav__link">Share</a></li>
-                        <li class="nav__item"><a href="#decoration" class="nav__link">Decorations</a></li>
-                        <li class="nav__item"><a href="#accessory" class="nav__link">Accessory</a></li>
+                        <li class="nav__item">
+                           <span style="margin: 10px;">Already have an account?</span> <a href="userLoginSignup.html" class="nav-button">Login</a>
+                          <!-- <i class="bx bx-toggle-left change-theme" id="theme-button"></i> -->
+                        </li>
 
-                        <li><i class='bx bx-toggle-left change-theme' id="theme-button"></i></li>
                     </ul>
                 </div>
 
@@ -42,22 +41,19 @@
 
         <main class="l-main">
             <!--========== CHOOSE DEVICE ==========-->
-            <section class="decoration section bd-container" id="decoration">
-                <h2 class="orange section-title">Choose a Device <br> Of Your Preference</h2>
-                <div class="decoration__container bd-grid">
-                    <div class="decoration__data">
-                        <img src="assets/img/Car_Icon.png" alt="" class="decoration__img">
-                        <h3 class="decoration__title">Two-Wheeler</h3>
-                        <a href="#" class="button button-link">Choose</a>
-                    </div>
-
-                    <div class="decoration__data">
-                        <img src="assets/img/Bike_Icon.png" alt="" class="decoration__img">
-                        <h3 class="decoration__title">Four Wheeler</h3>
-                        <a href="#" class="button button-link">Choose</a>
-                    </div>
+            <div class="wrapper">
+                <div class="search-input">
+                  <a href="" target="_blank" hidden></a>
+                  <input type="text" placeholder="Type to search..">
+                  <div class="autocom-box">
+                    <!-- here list are inserted from javascript -->
+                  </div>
+                  <div class="icon"><i class="fas fa-search"></i></div>
                 </div>
-            </section>
+              </div>
+               <script src="assets/js/suggestions.js"></script> 
+               <!-- <script src="js/script.js"></script>  -->
+          
 
 
             <!--========== SEND FEEDBACK ==========-->
@@ -125,5 +121,35 @@
 
         <!--========== MAIN JS ==========-->
         <script src="assets/js/main.js"></script>
+        <script>
+            let suggestions = [
+    "Channel",
+    "CodingLab",
+    "CodingNepal",
+    "YouTube",
+    "YouTuber",
+    "YouTube Channel",
+    "Blogger",
+    "Bollywood",
+    "Vlogger",
+    "Vechiles",
+    "Facebook",
+    "Freelancer",
+    "Facebook Page",
+    "Designer",
+    "Developer",
+    "Web Designer",
+    "Web Developer",
+    "Login Form in HTML & CSS",
+    "How to learn HTML & CSS",
+    "How to learn JavaScript",
+    "How to became Freelancer",
+    "How to became Web Designer",
+    "How to start Gaming Channel",
+    "How to start YouTube Channel",
+    "What does HTML stands for?",
+    "What does CSS stands for?",
+];
+        </script>
     </body>
 </html>
