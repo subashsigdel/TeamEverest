@@ -4,7 +4,7 @@ from open_park.models import Parking
 
 
 class Ticket(models.Model):
-    parking = models.ForeignKey(Parking, on_delete=models.CASCADE, null=True, blank=True)
+    parking_code = models.CharField(max_length=255, null=True, blank=True)
     code = models.CharField(max_length=255, null=True, blank=True)
     username = models.CharField(max_length=50,default="dibas")
     routeId = models.IntegerField()

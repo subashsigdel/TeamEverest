@@ -18,7 +18,7 @@
     <div class="box">
       <div class="inner-box">
         <div class="forms-wrap">
-          <form action="" autocomplete="off" class="sign-in-form" method="POST">
+          <form action="{% url 'login' %}" autocomplete="off" class="sign-in-form" method="POST">
             {% csrf_token %}
             <div class="logo">
               <img src="{%  static 'customer/img/logo.png' %}" alt="easyclass" />
@@ -33,7 +33,7 @@
 
             <div class="actual-form">
               <div class="input-wrap">
-                <input type="email" minlength="4" name="username" class="input-field" autocomplete="off" required />
+                <input type="text" minlength="4" name="username" class="input-field" autocomplete="off" required />
                 <label>Email</label>
               </div>
 
