@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 :root{
-	--primary: #6b59d3;
+	--primary: #de6f3b;
 	--secondary: #bfc0c0;
 	--white: #fff;
 	--text-clr: #5b6475;
 	--header-clr: #25273d;
-	--next-btn-hover: #8577d2;
+	--next-btn-hover: #de6f3b;
 	--back-btn-hover: #8b8c8c;
 }
 
@@ -118,7 +118,7 @@ body{
 	margin-bottom: 5px;
 }
 
-.wrapper .form_wrap .input_wrap .input{
+.wrapper .form_wrap .input_wrap .input, .select {
 	border: 2px solid var(--secondary);
 	border-radius: 3px;
 	padding: 10px;
@@ -126,6 +126,8 @@ body{
 	width: 100%;	
 	font-size: 16px;
 	transition: 0.5s ease;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .wrapper .form_wrap .input_wrap .input:focus{
