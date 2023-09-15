@@ -1,0 +1,203 @@
+.container {
+
+ 
+
+    display: flex;
+
+ 
+
+    justify-content: center;
+
+ 
+
+    align-items: top;
+
+ 
+/* 
+    height: 100vh; */
+
+    padding: 8px;
+
+ 
+
+    width: 100%;
+
+ 
+
+}
+
+ 
+
+ 
+
+ 
+
+.progress-bar__container {
+
+ 
+
+    width: 80%;
+
+ 
+
+    height: 2rem;
+
+ 
+
+    border-radius: 2rem;
+
+ 
+
+    position: relative;
+
+ 
+
+    overflow: hidden;
+
+ 
+
+    transition: all 0.5s;
+
+ 
+
+    will-change: transform;
+
+ 
+
+    box-shadow: 0 0 5px #e76f51;
+
+ 
+
+}
+
+ 
+
+ 
+
+ 
+
+.progress-bar {
+
+ 
+
+    position: absolute;
+
+ 
+
+    height: 100%;
+
+ 
+
+    width: 0; /* Initially, the width is 0% */
+
+ 
+
+    content: "";
+
+ 
+
+    top: 0;
+
+ 
+
+    bottom: 0;
+
+ 
+
+    left: 0;
+
+ 
+
+    border-radius: inherit;
+
+ 
+
+    display: flex;
+
+ 
+
+    justify-content: center;
+
+ 
+
+    align-items: center;
+
+ 
+
+    color: rgb(0, 162, 255);
+
+ 
+
+    font-family: sans-serif;
+
+ 
+
+    transition: background-color 0.5s, width 2s; /* Add transition for background-color and width */
+
+ 
+
+}
+
+ 
+
+ 
+
+ 
+
+.progress-bar__text {
+
+ 
+
+    display: none;
+
+ 
+
+}
+.card{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+.cardbike{
+    height: 10rem;
+}
+.bike{
+    border-radius: 2rem;
+    box-shadow: 9px 9px rgb(247, 243, 199) ;
+    
+    height: 10rem;
+    background-color: #fff598;
+    width: 20rem;
+    margin-left: 12rem;
+}
+.car{
+    border-radius: 2rem;
+    box-shadow: 9px 9px rgb(247, 243, 199) ;
+    
+    height: 10rem;
+    background-color:#fff598;
+    width: 20rem;
+    margin-left: 12rem;
+
+}
+.bike img{
+    height: 100px;
+    width: 120px;
+    margin-left: 6rem;
+}
+.car img{
+    height: 100px;
+    width: 120px;
+    margin-left: 6rem;
+}
+.text{
+    text-align: center;
+    font-weight: bolder;
+    color: #e76f51;
+    font-size: larger;
+}
+.home-section{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}

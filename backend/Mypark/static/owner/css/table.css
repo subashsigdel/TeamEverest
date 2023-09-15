@@ -1,0 +1,81 @@
+.chart-table-container {
+
+    display: flex;
+
+    justify-content: space-between;
+
+}
+
+ 
+
+/* Style the table container */
+
+.table-container {
+
+    position: absolute;
+
+    left: 80px; /* Adjust this value as needed */
+
+    top: 0;
+
+    width: calc(100% - 80px); /* Adjust this value based on your sidebar width */
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    overflow: auto;
+
+}
+
+ 
+
+table {
+
+    width: 100%;
+
+}
+
+ 
+
+th, td {
+
+    text-align: left;
+
+    padding: 8px;
+
+    border-bottom: 1px solid #ddd;
+
+}
+
+ 
+
+th {
+
+    background-color: #f2f2f2;
+
+}
+
+ 
+
+/* Style the chart container */
+
+.chart-container {
+
+    width: 50%; /* Adjust the width as needed */
+
+    padding: 20px; /* Add some padding for spacing */
+
+    box-sizing: border-box;
+
+}
+
+ 
+
+#chartContainer {
+
+    width: 100%;
+
+    height: 300px;
+
+}
