@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -44,5 +45,31 @@ def owner(request):
 
 
 # For customer
-def customer(request):
-    pass
+
+def customer_registration(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        first_name = request.POST['first_name']
+
+        # Check if the username is already taken
+        if User.objects.filter(username=username).exists():
+            error_message = "Username already taken."
+        else:
+            # Create a new user
+            user = User.objects.create_user(username=username, password=password)
+            user.first_name = first_name
+            user.save()
+
+            # Authenticate and log in the user
+            user = authenticate(username=username, password=password)
+            login(request, user)
+
+            # Redirect to a success page or home page
+            return redirect('home')  # Replace 'home' with your desired URL name
+
+    else:
+        error_message = ""
+
+    return render(request, 'customer/register.html', {'error_message': error_message})
+
