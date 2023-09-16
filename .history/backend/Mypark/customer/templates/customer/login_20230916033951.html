@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form | OpenPark</title>
+  <link rel="stylesheet" href="{%  static 'customer/css/login.css' %}" />
+  <link rel="stylesheet" href="{%  static 'customer/css/styles.css' %}" />
+
+
+</head>
+
+<body>
+  <main>
+    <div class="box">
+      <div class="inner-box">
+        <div class="forms-wrap">
+          <form action="{% url 'login' %}" autocomplete="off" class="sign-in-form" method="POST">
+            {% csrf_token %}
+            <div class="logo">
+              {% comment %} <img src="{%  static 'customer/img/logo.png' %}" alt="easyclass" /> {% endcomment %}
+              <h4>OPEN<b>PARK</b></h4>
+            </div>
+
+            <div class="heading">
+              <h2>Welcome Back</h2>
+              <h6>Not registred yet?</h6>
+              {% comment %} <!-- <a href="{% url 'register' %}">Sign up</a> --> {% endcomment %}
+            </div>
+
+            <div class="actual-form">
+              <div class="input-wrap">
+                <input type="text" minlength="4" name="username" class="input-field" autocomplete="off" required />
+                <label>Email</label>
+              </div>
+
+              <div class="input-wrap">
+                <input type="password" minlength="4" class="input-field" autocomplete="off" name="password" required />
+                <label>Password</label>
+
+
+
+
+              </div>
+              {% if message %}
+              <div>{{ message }}</div>
+              {% endif %}
+
+
+              <input type="submit" value="Sign In" class="sign-btn" />
+
+              <p class="text">
+                Forgotten your password or you login datails?
+                <a href="#">Get help</a> signing in
+              </p>
+            </div>
+          </form>
+
+        </div>
+
+        <div class="carousel">
+          <div class="images-wrapper">
+            <img src="{%  static 'customer/img/image1.png' %}" class="image img-1 show" alt="" />
+            <img src="{%  static 'customer/img/image2.png' %}" class="image img-2" alt="" />
+            <img src="{%  static 'customer/img/image3.png' %}" class="image img-3" alt="" />
+          </div>
+
+          <div class="text-slider">
+            <div class="text-wrap">
+              <div class="text-group">
+                <h2>Create your own courses</h2>
+                <h2>Customize as you like</h2>
+                <h2>Invite students to your class</h2>
+              </div>
+            </div>
+
+            <div class="bullets">
+              <span class="active" data-value="1"></span>
+              <span data-value="2"></span>
+              <span data-value="3"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Javascript file -->
+
+  <script src="{%  static 'customer/js/login.js' %}"></script>
+</body>
+
+</html>
