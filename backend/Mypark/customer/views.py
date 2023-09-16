@@ -95,11 +95,8 @@ def location_search(request, query='Bike'):
         geolocator = Nominatim(user_agent="http")
         location2 = geolocator.geocode(location)
         if location2:
-            durbarmarg = (location2.latitude, location2.longitude)
-            print(durbarmarg)
             raw = location2.raw
             boundingBox = raw.get('boundingbox')
-            print(boundingBox)
-            return render(request, 'customer/index.html', {'durbarmarg': durbarmarg})
+            return render(request, 'customer/index.html')
     
     return render(request, 'customer/index.html.html')
