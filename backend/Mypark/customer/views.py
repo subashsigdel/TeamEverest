@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from geopy.geocoders import Nominatim
 from open_park.models import Parking, KYC
+from geopy.distance import geodesic
 from django.contrib import messages
 
 # Create your views here.
@@ -107,27 +108,39 @@ def choose_location(request):
     return render(request, 'customer/choose_location.html')
 
 # User Search Location 
-def location_search(request, query='Bike'):
-    query = request.GET.get('query', '')
+def location_search(request):
     if request.method == 'POST':
-        location = request.POST['location']  # Use square brackets to access POST data
+        location = request.POST['location']
         geolocator = Nominatim(user_agent="http")
         location2 = geolocator.geocode(location)
+        
         if location2:
-            latitude = location2.latitude
-            longitude = location2.longitude
-            raw = location2.raw
-            boundingBox = raw.get('boundingbox')
-            context = {
-                'latitude': latitude,
-                'longitude': longitude,
-                'boundingBox': boundingBox
+            user_latitude = location2.latitude
+            user_longitude = location2.longitude
+            search_radius_km = 5  # Adjust this as needed
+            parkings_within_radius = []
 
-            }
+            all_parkings = Parking.objects.all()
 
-            return render(request, 'customer/map.html', context)
+            for parking in all_parkings:
+                parking_latitude = parking.latitude
+                parking_longitude = parking.longitude
+                distance_km = geodesic((user_latitude, user_longitude), (parking_latitude, parking_longitude)).kilometers
+
+                if distance_km <= search_radius_km:
+                    try:
+                        kyc = KYC.objects.get(parking_code=parking.code)
+                        parking.kyc_name = kyc.name
+                        parking.kyc_address = kyc.address
+                    except KYC.DoesNotExist:
+                        parking.kyc_name = None
+                        parking.kyc_address = None
+
+                    parkings_within_radius.append(parking)
+            return render(request, 'customer/map.html', {'parkings': parkings_within_radius})
+
+    return render(request, 'customer/search.html')
     
-    return render(request, 'customer/map.html')
 
 
 

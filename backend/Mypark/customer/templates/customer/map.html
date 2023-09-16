@@ -55,7 +55,9 @@
                 <button id="clearButton">Clear</button>
 
             </div>
-
+            {% for parking in parkings %}
+            <li>{{ parking.car_charge }}, {{ parking.kyc_name}} - {{ parking.bike_charge }}</li>
+        {% endfor %}
         </div>
 
     </div>
