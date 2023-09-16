@@ -97,6 +97,7 @@ def location_search(request, query='Bike'):
         if location2:
             raw = location2.raw
             boundingBox = raw.get('boundingbox')
+
             return render(request, 'customer/index.html')
     
     return render(request, 'customer/index.html.html')
