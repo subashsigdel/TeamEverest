@@ -46,6 +46,7 @@
             <section class="decoration section bd-container" id="decoration" >
                 <h2 class="orange section-title">Choose a Location of Your Preference</h2>
                 <form autocomplete="off"  action="{% url 'locations' %}" method="POST">
+                  {% csrf_token %}
                     <div class="autocomplete shadow send__direction" >
                       <input class="send__input" id="myInput" type="text" name="location" placeholder="Location">
                     </div>

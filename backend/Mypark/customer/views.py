@@ -88,14 +88,18 @@ def choose_location(request):
     return render(request, 'customer/choose_location.html')
 
 # User Search Location 
-def location_search(request):
-    if request.method  == 'POST':
-        location = request.POST('location')
+def location_search(request, query='Bike'):
+    query = request.GET.get('query', '')
+    if request.method == 'POST':
+        location = request.POST['location']  # Use square brackets to access POST data
         geolocator = Nominatim(user_agent="http")
         location2 = geolocator.geocode(location)
-        durbarmarg = (location2.latitude, location2.longitude)
-        print(durbarmarg)
-        raw = location2.raw
-        boundingBox = raw.get('boundingbox')
-        boundingBox
-        return render(request, 'customer/index.html.html')
+        if location2:
+            durbarmarg = (location2.latitude, location2.longitude)
+            print(durbarmarg)
+            raw = location2.raw
+            boundingBox = raw.get('boundingbox')
+            print(boundingBox)
+            return render(request, 'customer/index.html', {'durbarmarg': durbarmarg})
+    
+    return render(request, 'customer/index.html.html')
