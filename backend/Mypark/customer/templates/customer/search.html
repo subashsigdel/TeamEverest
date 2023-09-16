@@ -45,11 +45,11 @@
             <!--========== CHOOSE DEVICE ==========-->
             <section class="decoration section bd-container" id="decoration" >
                 <h2 class="orange section-title">Choose a Location of Your Preference</h2>
-                <form autocomplete="off"  action="">
+                <form autocomplete="off"  action="{% url 'locations' %}" method="POST">
                     <div class="autocomplete shadow send__direction" >
-                      <input class="send__input" id="myInput" type="text" name="myLocation" placeholder="Location">
-                      <a class="button">Search</a>
+                      <input class="send__input" id="myInput" type="text" name="location" placeholder="Location">
                     </div>
+                    <input class="button" style="margin: 10px;" type="submit" value="Search">
                   </form>
             </section>
 

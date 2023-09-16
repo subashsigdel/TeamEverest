@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from geopy.geocoders import Nominatim
 
 # Create your views here.
 
@@ -73,3 +74,28 @@ def customer_registration(request):
 
     return render(request, 'customer/register.html', {'error_message': error_message})
 
+
+# search
+def search(request):
+    # query = request.GET("location")
+    # if request.user.is_authenticated:
+    #     return render(request, 'customer/search.html', {'query': query})
+    # else:
+    return render(request, 'customer/search.html')
+
+# Choose location
+def choose_location(request):
+    return render(request, 'customer/choose_location.html')
+
+# User Search Location 
+def location_search(request):
+    if request.method  == 'POST':
+        location = request.POST('location')
+        geolocator = Nominatim(user_agent="http")
+        location2 = geolocator.geocode(location)
+        durbarmarg = (location2.latitude, location2.longitude)
+        print(durbarmarg)
+        raw = location2.raw
+        boundingBox = raw.get('boundingbox')
+        boundingBox
+        return render(request, 'customer/index.html.html')
