@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/adminLogin.css">
+    <title>Document</title>
+	<style>
+		.same_line{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			gap:20px;
+			margin: 10px 0px;
+		}
+	</style>
+</head>
+<body>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+    <script src="assets/js/adminLogin.js" defer></script>
+<div class="wrapper">
+	<div class="header">
+		<ul>
+			<li class="active form_1_progessbar">
+				<div>
+					<p>1</p>
+				</div>
+			</li>
+			<li class="form_2_progessbar">
+				<div>
+					<p>2</p>
+				</div>
+			</li>
+			<li class="form_3_progessbar">
+				<div>
+					<p>3</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="form_wrap">
+		<div class="form_1 data_info">
+			<h2>Personal Info</h2>
+			<form>
+				<div class="form_container">
+					<div class="input_wrap">
+						<label for="email">Email Address</label>
+						<input type="text" name="Email Address" class="input" id="email" required>
+					</div>
+					<div class="input_wrap">
+						<label for="password">Password</label>
+						<input type="password" name="password" class="input" id="password" required>
+					</div>
+					<div class="input_wrap">
+						<label for="confirm_password">Confirm Password</label>
+						<input type="password" name="confirm password" class="input" id="confirm_password" required>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="form_2 data_info" style="display: none;">
+			<h2>Parking Information</h2>
+			<form>
+				<div class="form_container">
+					<div class="input_wrap">
+						<label for="idSelect">Registration Type</label>
+
+                        <select id="idSelect" class="select" name="idSelect" required>
+                            <option  disabled selected>Select Your Registration Type:</option>
+                            <option>Person</option>
+                            <option>Organization</option>
+                          </select>
+					</div>
+
+					<div class="input_wrap">
+						<label for="car_slots">Available Car Slots:</label>
+						<input type="number" name="car_slots" class="input" id="car_slots" required>
+					</div>
+					<div class="input_wrap">
+						<label for="bike_slots">Available Bike Slots:</label>
+						<input type="number" name="bike_slots" class="input" id="bike_slots" required>
+					</div>
+					<div class="input_wrap">
+						<label for="bike_cost">Hourly Bike Parking Cost</label>
+						<input type="text" name="bike_cost" class="input" id="bike_cost" required>
+					</div>
+
+					<div class="input_wrap">
+						<label for="car_cost">Hourly Car Parking Cost</label>
+						<input type="text" name="car_cost" class="input" id="car_cost" required>
+					</div>
+
+					<div class="input_wrap same_line">
+						<input type="checkbox" id="fullTime" name="full_time" value="full_time" onclick="checkFunction()" required>
+                        <label for="full_time">24 Hour availability</label><br>
+					</div>
+
+					<div class="input_wrap" id="startTime">
+                        <label for="start_time">Start Time</label><br>
+						<input type="time"  name="start_time" value="start_time" class="input" required>
+					</div>
+					<div class="input_wrap"  id="endTime" >
+                        <label for="end_time">End Time</label><br>
+						<input type="time" name="end_time" value="end_time" class="input" required>
+					</div>
+					
+				</div>
+			</form>
+		</div>
+		<div class="form_3 data_info" style="display: none;">
+			<h2>Owner's KYC</h2>
+			<form>
+				<div class="form_container">
+                    <div class="input_wrap">
+						<label for="phone">Full Name</label>
+						<input type="text" name="password" class="input" id="password" required>
+					</div>
+
+					<div class="input_wrap">
+						<label for="photo">Your Recent Photo:</label>
+						<input type="file" id="photo" name="photo" accept="image/*" class="input" required>
+					</div>
+
+                    <div class="input_wrap">
+						<label for="phone">Contact Address</label>
+						<input type="text" name="password" class="input" id="password" required>
+					</div>
+
+                    <div class="input_wrap">
+						<label for="phone">Phone Number</label>
+						<input type="text" name="password" class="input" id="password" required>
+					</div>
+
+					<div class="input_wrap">
+						<label for="idSelect">Identification Type</label>
+
+                        <select id="idSelect" class="select" name="idSelect" required>
+                            <option  disabled selected>Select Your Id Type:</option>
+                            <option>Citizenship</option>
+                            <option>Passport</option>
+                            <option>National ID</option>
+                            <option>Driving licence</option>
+                          </select>                  
+						<!-- <input type="text" name="Current Company" class="input" id="company"> -->
+					</div>
+
+					<div class="input_wrap">
+						<label for="identification">Identification Document:</label>
+						<input type="file" id="identification" name="identification" accept="image/*" class="input" required>
+					</div>
+
+					<div class="input_wrap">
+						<label for="experience">Identification Number</label>
+						<input type="text" name="Total Experience" class="input" id="experience" required>
+					</div>
+
+					<div class="input_wrap same_line">
+						<input type="checkbox" id="terms" name="terms" value="terms" style="display: inline;" required>
+                        <label for="terms"> I agree to the <a>terms and conditions.</a></label><br>
+					</div>
+                    <div class="input_wrap same_line">
+						<input type="checkbox" id="privacy" name="privacy" value="privacy" required>
+                        <label for="privacy"> I agree to the <a>privacy policy.</a></label><br>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="btns_wrap">
+		<div class="common_btns form_1_btns">
+			<button type="button" class="btn_next">Next <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+		</div>
+		<div class="common_btns form_2_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
+			<button type="button" class="btn_next">Next <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+		</div>
+		<div class="common_btns form_3_btns" style="display: none;">
+			<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
+			<button type="button" class="btn_done">Done</button>
+		</div>
+	</div>
+</div>
+
+<div class="modal_wrapper">
+	<div class="shadow"></div>
+	<div class="success_wrap">
+		<span class="modal_icon"><ion-icon name="checkmark-sharp"></ion-icon></span>
+		<p>You have successfully completed the process.</p>
+	</div>
+</div>
+<script>
+
+	// Function for hiding start and end task when the checkbox is ticked 
+function checkFunction() {
+    var checkBox = document.getElementById("fullTime");
+
+    var timeInputStart = document.getElementById("startTime");
+    var timeInputEnd = document.getElementById("endTime");
+
+    if (checkBox.checked == true) {
+        timeInputStart.style.display = "none";
+        timeInputEnd.style.display = "none";
+    } else {
+        timeInputStart.style.display = "block";
+        timeInputEnd.style.display = "block";  
+    }
+}
+</script>
+</body>
+</html>
