@@ -1,0 +1,144 @@
+/* *{
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: antiquewhite;
+}
+.QRmain{
+    height: 991vh;
+    width: 30%;
+    margin: auto;
+    
+
+}
+.QRcode{
+    margin-top: 8px;
+    height: 98vh;
+    background-color:cadetblue;
+    border-radius: 2rem;
+    border: solid 0.2rem orange;
+}
+.code{
+    margin-top: 30px;
+    background-color:cadetblue;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+} */
+
+/* QR */
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-family: "Poppins", sans-serif;
+    background-color: #ecebfa;
+  }
+  
+  /* Main Ticket Style */
+  .ticketContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ticket {
+    background-color: white;
+    color: darkslategray;
+    border-radius: 12px;
+  }
+  .ticketShadow {
+    animation: bouncingShadow 0.6s ease-out infinite alternate;
+    margin-top: 4px;
+    width: 95%;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    filter: blur(12px);
+  }
+  
+  /* Ticket Content */
+  .ticketTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 12px 16px 4px;
+  }
+  hr {
+    width: 90%;
+    border: 1px solid #efefef;
+  }
+  .ticketDetail {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 4px 16px;
+  }
+  .ticketSubDetail {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+  .ticketSubDetail .code {
+    margin-right: 24px;
+  }
+  
+  /* Ticket Ripper */
+  .ticketRip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .circleLeft {
+    width: 12px;
+    height: 24px;
+    background-color: #b7b5e4;
+    border-radius: 0 12px 12px 0;
+  }
+  .ripLine {
+    width: 100%;
+    border-top: 3px solid #b7b5e4;
+    border-top-style: dashed;
+  }
+  .circleRight {
+    width: 12px;
+    height: 24px;
+    background-color: #b7b5e4;
+    border-radius: 12px 0 0 12px;
+  }
+  
+  /* Ticket Bouncing Animation */
+  @keyframes bouncingCard {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-18px);
+    }
+  }
+  @keyframes bouncingShadow {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(4px);
+    }
+  }
+  .ticketbox{
+    margin-top: 3rem;
+  }
+  .TicketDownload{
+    border:solid 0.3rem #000000;
+    background-color: darkorange;
+    margin-left: 6rem;  }
+.top{
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    color: orange;
+}

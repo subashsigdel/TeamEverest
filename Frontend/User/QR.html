@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner</title>
+    <link rel="stylesheet" href="{% static 'customer/css/QR.css' %}">
+</head>
+<body>
+    <div class="QRmain">
+        <div class="QRcode">
+            <div class="code">
+                <div class="top">SCAN</div>
+                <img src="{% static 'customer/assets/img/qr.png '%}" alt="25615ABJBDHS35343214" >
+            </div>
+        </div>
+        <div class="ticketbox">
+            <div class="ticketContainer">
+                <div class="ticket">
+                  <div class="ticketTitle">Bike Parking</div>
+                  <hr>
+                  <div class="ticketDetail">
+                    <div>Parking no:&ensp; 5 </div>
+                    <div>place:&nbsp; durbarmarg</div>
+                    <div>Time:&emsp; 19:20</div>
+                  </div>
+                  <div class="ticketRip">
+                    <div class="circleLeft"></div>
+                    <div class="ripLine"></div>
+                    <div class="circleRight"></div>
+                  </div>
+                  <div class="ticketSubDetail">
+                    <div class="code">DUBR54120</div>
+                    <div class="date"> Jan 14<sup>th</sup> 2023</div>
+                  </div>
+                </div>
+                <div class="ticketShadow"></div>
+              </div>
+        </div>
+        <button class="TicketDownload">Download</button>
+    </div>
+</body>
+</html>
