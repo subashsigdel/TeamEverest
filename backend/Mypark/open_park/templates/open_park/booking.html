@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
           <ul class="nav-list">
           
             <li>
-              <a href="./Owner.html"> 
+              <a href="{% url 'owner_dashboard' %}"> 
                   <i class="fa-sharp fa-solid fa-house"></i>
                 <span class="links_name">Home</span>
               </a>
@@ -39,7 +40,7 @@
            </li>
           
            <li>
-             <a href="./bike.html">
+             <a href="{% url 'my_bike_bookings' %}">
               <i class="fa-solid fa-bicycle"></i>
                <span class="links_name">bike</span>
              </a>
@@ -47,7 +48,7 @@
            </li>
 
            <li>
-            <a href="./booking.html">
+            <a href="{% url 'my_active_bookings' %}">
              <i class="fa-solid fa-book"></i>
               <span class="links_name">Active Booking</span>
             </a>
@@ -79,7 +80,7 @@
     
                     <input type="search" placeholder="Search Data...">
     
-                    <img src="{% static 'owner/img/search.png" alt="">
+                    <img src="{% static 'owner/img/search.png' %}" alt="">
     
                 </div>
     
@@ -93,9 +94,9 @@
     
                         <label>Export As &nbsp; &#10140;</label>
     
-                        <label for="export-file" id="toPDF">PDF <img src="{% static 'owner/img/pdf.png" alt=""></label>
+                        <label for="export-file" id="toPDF">PDF <img src="{% static 'owner/img/pdf.png' %}' %}" alt=""></label>
     
-                        <label for="export-file" id="toEXCEL">EXCEL <img src="{% static 'owner/img/excel.png" alt=""></label>
+                        <label for="export-file" id="toEXCEL">EXCEL <img src="{% static 'owner/img/excel.png' %}" alt=""></label>
     
                     </div>
     
@@ -130,227 +131,40 @@
                     </thead>
     
                     <tbody>
-    
-                        <tr>
-    
-                            <td>2023 September   </td>
-    
-                            <td>Ram Tamang </td>
-                            <td>Bike <i class="fa-solid fa-bicycle"></i></td>
-    
-                            <td> 8:00 PM</td>
-    
-                            <td> 9:00 PM </td>
-    
-                            <td>  <p class="status pending">Pending</p> </td>
-    
-                            <td> <strong>Rs.80 </strong></td>
-    
-                        </tr>
-                        <tr>
-    
-                          <td>2023 September   </td>
-  
-                          <td>krishna koirala </td>
-
-                          <td> Bike <i class="fa-solid fa-bicycle"></i></td>
-  
-                          <td> 10:00 PM</td>
-  
-                          <td> 11:00 PM </td>
-  
-                          <td>  <p class="status pending">Pending</p> </td>
-  
-                          <td> <strong>Rs.80 </strong></td>
-  
-                      </tr>
+                      {% for ticket in parking_tickets %}
                       <tr>
-    
-                        <td>2023 September   </td>
-
-                        <td>sita khadka </td>
-
-                        <td> car <i class="fa-solid fa-car"></i></td>
-
-                        <td> 10:00 PM</td>
-
-                        <td> 11:00 PM </td>
-
-                        <td>  <p class="status pending">Pending</p> </td>
-
-                        <td> <strong>Rs.200</strong></td>
-
-                    </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td></td>
-    
-                            <td>  </td>
-    
-                            <td> </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td> </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td></td>
-    
-                            <td>  </td>
-    
-                            <td> </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-                            <td></td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
+        
+                        <td>{{ticket.booked_date|date:"d/m/Y"}} </td>
+        
+                        <td>{{ticket.username}} &nbsp; <i class="fa-solid fa-car"></i> </td>
+        
+                        <td> {{ticket.arrivalTime}}</td>
+        
+                        <td> {{ticket.departureTime}} </td>
+                        {% if ticket.status == 'Cancel'%}
+                        <td>
+                          <p class="status cancelled">{{ticket.status}}</p>
+                        </td>
+                        {% elif ticket.status == "Reserved"%}
+                        <td>
+                          <p class="status pending">Reserved</p>
+                        </td>
+                        {% elif ticket.status == "Booked"%}
+                        <td>
+                          <p class="status delivered">Booked</p>
+                        </td>
+        
+                        {% endif %}
+                        <td> <strong>Rs. {{ticket.amount}}</strong></td>
+        
+                      </tr>
+        
+                      {% endfor %}
+                     
+                    
+        
                     </tbody>
+        
     
                 </table>
     
@@ -359,7 +173,7 @@
         </main>
 
 
-      <script src="{% static 'owner/js/nav.js"></script>      
+      <script src="{% static 'owner/js/nav.js' %}"></script>      
         </section>
       </body>
     

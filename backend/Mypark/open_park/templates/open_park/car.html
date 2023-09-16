@@ -30,7 +30,7 @@
       <ul class="nav-list">
 
         <li>
-          <a href="./Owner.html">
+          <a href="{% url 'owner_dashboard' %}">
             <i class="fa-sharp fa-solid fa-house"></i>
             <span class="links_name">Home</span>
           </a>
@@ -46,7 +46,7 @@
         </li>
 
         <li>
-          <a href="./bike.html">
+          <a href="{% url 'my_bike_bookings' %}">
             <i class="fa-solid fa-bicycle"></i>
             <span class="links_name">bike</span>
           </a>
@@ -54,7 +54,7 @@
         </li>
 
         <li>
-          <a href="./booking.html">
+          <a href="{% url 'my_active_bookings' %}">
             <i class="fa-solid fa-book"></i>
             <span class="links_name">Active Booking</span>
           </a>
@@ -100,7 +100,7 @@
 
               <label>Export As &nbsp; &#10140;</label>
 
-              <label for="export-file" id="toPDF">PDF <img src="{% static 'owner/img/pdf.png' %}" alt=""></label>
+              <label for="export-file" id="toPDF">PDF <img src="{% static 'owner/img/pdf.png' %}' %}" alt=""></label>
 
               <label for="export-file" id="toEXCEL">EXCEL <img src="{% static 'owner/img/excel.png' %}" alt=""></label>
 

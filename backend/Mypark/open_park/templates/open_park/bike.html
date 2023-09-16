@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
           <ul class="nav-list">
           
             <li>
-              <a href="./Owner.html"> 
+              <a href="{% url 'owner_dashboard' %}"> 
                   <i class="fa-sharp fa-solid fa-house"></i>
                 <span class="links_name">Home</span>
               </a>
@@ -39,7 +40,7 @@
            </li>
           
            <li>
-             <a href="#bike-section">
+             <a href="{% url 'my_bike_bookings' %}">
               <i class="fa-solid fa-bicycle"></i>
                <span class="links_name">bike</span>
              </a>
@@ -47,7 +48,7 @@
            </li>
 
            <li>
-            <a href="./booking.html">
+            <a href="{% url 'my_active_bookings' %}">
              <i class="fa-solid fa-book"></i>
               <span class="links_name">Active Booking</span>
             </a>
@@ -93,7 +94,7 @@
     
                         <label>Export As &nbsp; &#10140;</label>
     
-                        <label for="export-file" id="toPDF">PDF <img src="{% static 'owner/img/pdf.png" alt=""></label>
+                        <label for="export-file" id="toPDF">PDF <img src="{% static 'owner/img/pdf.png' %}" alt=""></label>
     
                         <label for="export-file" id="toEXCEL">EXCEL <img src="{% static 'owner/img/excel.png" alt=""></label>
     
@@ -128,214 +129,40 @@
                     </thead>
     
                     <tbody>
-    
-                        <tr>
-    
-                            <td>2023 September   </td>
-
-                            
-    
-                            <td>Ram Tamang &nbsp; <i class="fa-solid fa-bicycle"></i></td>
-    
-                            <td> 8:00 PM</td>
-    
-                            <td> 9:00 PM </td>
-    
-                            <td>  <p class="status cancelled">Cancelled</p> </td>
-    
-                            <td> <strong> Fine Rs.20 </strong></td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                          <td>2023 September   </td>
-  
-                          <td>Hari Shrestha &nbsp; <i class="fa-solid fa-bicycle"></i> </td>
-  
-                          <td> 8:00 PM</td>
-  
-                          <td> 9:00 PM </td>
-  
-                          <td>  <p class="status delivered">Delivered</p> </td>
-  
-                          <td> <strong>Rs.60 </strong></td>
-  
-                      </tr>
-                       
+                      {% for ticket in parking_tickets %}
                       <tr>
-  
-                        <td>2023 August   </td>
-
-                        <td>shankhar khatiwada &nbsp; <i class="fa-solid fa-bicycle"></i> </td>
-
-                        <td> 7:00 AM</td>
-
-                        <td> 10:00 AM </td>
-
-                        <td>  <p class="status pending">Pending</p> </td>
-
-                        <td> <strong> Rs.100 </strong></td>
-
-                    </tr>
-                    <tr>
-  
-                      <td>2023 june   </td>
-
-                      <td>shyam maharjan &nbsp; <i class="fa-solid fa-bicycle"></i> </td>
-
-                      <td> 12:00 PM</td>
-
-                      <td> 1:00 PM </td>
-
-                      <td>  <p class="status delivered">Delivered</p> </td>
-
-                      <td> <strong>Rs.80 </strong></td>
-
-                  </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td></td>
-    
-                            <td>  </td>
-    
-                            <td> </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td> </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td></td>
-    
-                            <td>  </td>
-    
-                            <td> </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
-                        <tr>
-    
-                            <td> </td>
-    
-                            <td> </td>
-    
-                            <td>  </td>
-    
-                            <td>  </td>
-    
-                            <td>
-    
-                               
-    
-                            </td>
-    
-                            <td> <strong></strong> </td>
-    
-                        </tr>
-    
+        
+                        <td>{{ticket.booked_date|date:"d/m/Y"}} </td>
+        
+                        <td>{{ticket.username}} &nbsp; <i class="fa-solid fa-car"></i> </td>
+        
+                        <td> {{ticket.arrivalTime}}</td>
+        
+                        <td> {{ticket.departureTime}} </td>
+                        {% if ticket.status == 'Cancel'%}
+                        <td>
+                          <p class="status cancelled">{{ticket.status}}</p>
+                        </td>
+                        {% elif ticket.status == "Reserved"%}
+                        <td>
+                          <p class="status pending">Reserved</p>
+                        </td>
+                        {% elif ticket.status == "Booked"%}
+                        <td>
+                          <p class="status delivered">Booked</p>
+                        </td>
+        
+                        {% endif %}
+                        <td> <strong>Rs. {{ticket.amount}}</strong></td>
+        
+                      </tr>
+        
+                      {% endfor %}
+                     
+                    
+        
                     </tbody>
-    
+        
                 </table>
     
             </section>
@@ -343,8 +170,8 @@
         </main>
 
 
-      <script src="{% static 'owner/js/nav.js"></script>
-      <script src="{% static 'owner/js/status.js"></script> 
+      <script src="{% static 'owner/js/nav.js' %}"></script>
+      <script src="{% static 'owner/js/status.js' %}"></script> 
         </section>
       </body>
     
