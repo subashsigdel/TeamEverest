@@ -1,0 +1,142 @@
+
+        /* Updated map size and border styling */
+
+        #map {
+
+            height: 600px; /* Adjust the height as desired */
+
+            border: 2px solid #ccc;
+
+            border-radius: 5px;
+
+            margin-right: 320px; /* Width of the panel */
+
+        }
+
+ 
+
+        /* Styling for the sliding panel */
+
+        .panel {
+
+            position: fixed;
+
+            top: 0;
+
+            right: 0; /* Fixed to the right */
+
+            width: 300px; /* Width of the panel */
+
+            height: 100%;
+
+            background-color: #fff;
+
+            overflow-y: auto;
+
+            box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5);
+
+        }
+
+ 
+
+        .panel-header {
+
+            text-align: center;
+
+            padding: 10px;
+
+            background-color: #F57C51;
+
+            color: white;
+
+            font-weight: bold;
+
+        }
+
+ 
+
+        .panel-content {
+
+            padding: 20px;
+
+        }
+
+ 
+
+        /* Center and style the search box inside the panel */
+
+        .search-container {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+       
+
+        #searchInput {
+
+            padding: 10px;
+
+            font-size: 16px;
+
+            border: 2px solid #ccc;
+
+            border-radius: 5px;
+
+            width: 80%;
+
+            margin-bottom: 10px; /* Add some margin below the input */
+
+        }
+
+       
+
+        #searchButton {
+
+            padding: 10px 20px;
+
+            font-size: 16px;
+
+            background-color: #F57C51;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            width: 50%; /* Set the button width to match the input */
+
+        }
+
+       
+
+        #searchButton:hover {
+
+            background-color: #eb8e6d;
+
+        }
+
+ 
+
+        h1 {
+
+           
+
+            font-size: 24px;
+
+            color: #F57C51;
+
+            margin-top: 20px;
+
+        }
