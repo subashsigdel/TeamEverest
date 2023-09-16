@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from geopy.geocoders import Nominatim
-from open_park.models import Parking
+from open_park.models import Parking, KYC
 from django.contrib import messages
 
 # Create your views here.
@@ -13,7 +13,6 @@ def user_index(request):
     return render(request, 'customer/index.html')
 
 
-# login 
 def login(request):
     message = None
     if request.method == 'POST':
@@ -24,23 +23,40 @@ def login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            auth_login(request, user)  # Use auth_login instead of login
-            if request.user.is_staff:
-                # Redirect to a success page or return a success response
-                message = "Success"
-                return redirect('owner_dashboard')
-            else:
-                message = "Success"
-                return redirect('choose_location')
+            auth_login(request, user)
+
+            try:
+                # Check if the user has a related Parking entry
+                parking = Parking.objects.get(owner=user)
+                kyc = KYC.objects.get(parking_code=parking.code)
+
+                if not parking.code or not kyc:
+                    # If either parking or KYC is incomplete, redirect to the respective registration page
+                    message = "Complete the required forms"
+                    if not parking.code:
+                        return redirect('register_parking')
+                    else:
+                        return redirect('register_kyc')
+
+            except Parking.DoesNotExist:
+                # If the user doesn't have a related Parking entry, redirect to register parking
+                message = "Complete form"
+                return redirect('register_parking')
+
+            # If all conditions are met, redirect to owner_dashboard
+            message = "Success"
+            return redirect('owner_dashboard')
+
         else:
             # Return an error response or render the login page with an error message
             message = "Incorrect Username or Password"
+
     context = {
         'message': message
     }
+    
     # Handle GET request (display the login form)
     return render(request, 'customer/login.html', context)
-
 
 
 # For park owner
@@ -199,4 +215,38 @@ def register_owner_parking(request):
 
 
 def register_owner_kyc(request):
-    return render(request, 'customer/owner3.html')
+    message = None
+
+    if request.method == 'POST':
+        # Extract data from request.POST
+        parking_code = Parking.objects.filter(
+            owner=request.user).values_list('code', flat=True)
+        citizenship_id = request.POST.get('citizenship_id')
+        name = request.POST.get('name')
+        image = request.FILES.get('image')
+        phone = request.POST.get('phone')
+        document_type = request.POST.get('document_type')
+        address = request.POST.get('address')
+        profile = request.FILES.get('profile')
+
+        # Create a KYC entry
+        kyc = KYC(
+            parking_code=parking_code,
+            citizenship_id=citizenship_id,
+            name=name,
+            image=image,
+            phone=phone,
+            document_type = document_type,
+            address = address,
+            profile=profile
+        )
+        kyc.save()
+
+        messages.success(request, 'KYC registered successfully.')
+        return redirect('owner_dashboard')  # Redirect to the KYC list page or another appropriate page
+
+    context = {
+        'message': message,
+    }
+    
+    return render(request, 'customer/owner3.html', context)

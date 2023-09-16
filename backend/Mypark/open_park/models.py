@@ -51,6 +51,8 @@ class KYC(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to=upload_kyc_picture)
     phone = models.IntegerField(null=True, blank=True)
     profile = models.ImageField(null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    document_type = models.CharField(max_length=255, null=True, blank=True)
 
 
     def __str__(self):

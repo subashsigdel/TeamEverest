@@ -44,21 +44,22 @@
 	<div class="form_wrap">
 		<div class="form_3 data_info">
 			<h2>Owner's KYC</h2>
-			<form>
+			<form action="", method="POST", enctype="multipart/form-data">
+				{% csrf_token %}
 				<div class="form_container">
                     <div class="input_wrap">
 						<label for="phone">Full Name</label>
-						<input type="text" name="password" class="input" id="password" required>
+						<input type="text" name="name" class="input" id="password" required>
 					</div>
 
 					<div class="input_wrap">
 						<label for="photo">Your Recent Photo:</label>
-						<input type="file" id="photo" name="photo" accept="image/*" class="input" required>
+						<input type="file" id="photo" name="profile" accept="image/*" class="input" required>
 					</div>
 
                     <div class="input_wrap">
 						<label for="phone">Contact Address</label>
-						<input type="text" name="password" class="input" id="password" required>
+						<input type="text" name="address" class="input" id="password" required>
 					</div>
 
                     <div class="input_wrap">
@@ -69,24 +70,24 @@
 					<div class="input_wrap">
 						<label for="idSelect">Identification Type</label>
 
-                        <select id="idSelect" class="select" name="idSelect" required>
+                        <select id="idSelect" class="select" name="documentation_type" required>
                             <option  disabled selected>Select Your Id Type:</option>
-                            <option>Citizenship</option>
-                            <option>Passport</option>
-                            <option>National ID</option>
-                            <option>Driving licence</option>
+                            <option value="Citizenship">Citizenship</option>
+                            <option value="Passport">Passport</option>
+                            <option value="National_id">National ID</option>
+                            <option value="license">Driving license</option>
                           </select>                  
 						<!-- <input type="text" name="Current Company" class="input" id="company"> -->
 					</div>
 
 					<div class="input_wrap">
 						<label for="identification">Identification Document:</label>
-						<input type="file" id="identification" name="identification" accept="image/*" class="input" required>
+						<input type="file" id="identification" name="image" accept="image/*" class="input" required>
 					</div>
 
 					<div class="input_wrap">
-						<label for="experience">Identification Number</label>
-						<input type="text" name="Total Experience" class="input" id="experience" required>
+						<label for="citizenship_id">Identification Number</label>
+						<input type="text" name="citizenship_id" class="input" id="experience" required>
 					</div>
 
 					<div class="input_wrap same_line">
@@ -98,17 +99,17 @@
                         <label for="privacy"> I agree to the <a>privacy policy.</a></label><br>
 					</div>
 				</div>
+				<div class="btns_wrap">
+					<div class="common_btns form_3_btns">
+							<button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
+						</a>
+						<button type="submit" class="btn_done">Done</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
-	<div class="btns_wrap">
-		<div class="common_btns form_3_btns">
-            <a href="{% url 'register_parking' %}">
-                <button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
-            </a>
-			<button type="button" class="btn_done">Done</button>
-		</div>
-	</div>
+	
 </div>
 
 <div class="modal_wrapper">
