@@ -263,3 +263,8 @@ def register_owner_kyc(request):
     }
     
     return render(request, 'customer/owner3.html', context)
+
+
+#QR code
+def qr_generator(request):
+    return render(request, 'customer/')
