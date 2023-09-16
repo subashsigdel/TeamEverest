@@ -103,14 +103,14 @@ def owner_dashboard(request):
         available_bike_slots = total_bike_slots - total_booked_bikes
 
         # Apply the conversion factor to calculate equivalent car slots from bikes
-        equivalent_car_slots_from_bikes = available_bike_slots // 4
+        equivalent_bike_slots_from_cars = available_car_slots * 4
 
         # Calculate the total available car slots considering equivalent car slots from bikes
-        total_available_car_slots = available_car_slots + equivalent_car_slots_from_bikes
+        total_available_bike_slots = available_bike_slots + equivalent_bike_slots_from_cars
 
         # Calculate the available slot percentage
-        if total_car_slots > 0:
-            available_slot_percentage = (total_available_car_slots / total_car_slots) * 100 -100
+        if total_bike_slots > 0:
+            available_slot_percentage = 100 - ((equivalent_bike_slots_from_cars + total_booked_bikes)/ total_bike_slots) * 100
         else:
             available_slot_percentage = 0
 
