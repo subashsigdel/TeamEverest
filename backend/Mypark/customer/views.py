@@ -95,9 +95,23 @@ def location_search(request, query='Bike'):
         geolocator = Nominatim(user_agent="http")
         location2 = geolocator.geocode(location)
         if location2:
+            latitude = location2.latitude
+            longitude = location2.longitude
             raw = location2.raw
             boundingBox = raw.get('boundingbox')
+            context = {
+                'latitude': latitude,
+                'longitude': longitude,
+                'boundingBox': boundingBox
 
-            return render(request, 'customer/index.html')
+            }
+
+            return render(request, 'customer/map.html', context)
     
-    return render(request, 'customer/index.html.html')
+    return render(request, 'customer/map.html')
+
+
+
+# for map
+def select_park(request):
+    return render(request, 'customer/map.html')

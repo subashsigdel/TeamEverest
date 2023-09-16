@@ -16,10 +16,10 @@ class Ticket(models.Model):
     fine = models.IntegerField(null=True, blank=True)
     departureTime = models.TimeField(default='00:00:00')
     arrivalTime = models.TimeField(default='00:00:00')
-    departureDate = models.DateField()
+    departureDate = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=255, null=True, blank=True)
     vehicleID = models.CharField(max_length=50)
-    booked_date = models.DateTimeField(auto_now_add=True)
+    booked_date = models.DateTimeField(null=True, blank=True)
 
 
     def __str__(self):

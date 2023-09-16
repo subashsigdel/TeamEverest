@@ -8,4 +8,6 @@ urlpatterns = [
     path('location', views.search, name="search"),
     path('parkings', views.location_search, name="locations"),
     path('location/choose', views.choose_location, name="choose_location"),
+    path('park/location', views.select_park, name="select_park"),
+
 ]
