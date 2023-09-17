@@ -46,16 +46,19 @@ def login(request):
 
             try:
                 # Check if the user has a related Parking entry
-                parking = Parking.objects.get(owner=user)
-                kyc = KYC.objects.get(parking_code=parking.code)
+                if user.is_staff:
+                    parking = Parking.objects.get(owner=user)
+                    kyc = KYC.objects.get(parking_code=parking.code)
 
-                if not parking.code or not kyc:
-                    # If either parking or KYC is incomplete, redirect to the respective registration page
-                    message = "Complete the required forms"
-                    if not parking.code:
-                        return redirect('register_parking')
-                    else:
-                        return redirect('register_kyc')
+                    if not parking.code or not kyc:
+                        # If either parking or KYC is incomplete, redirect to the respective registration page
+                        message = "Complete the required forms"
+                        if not parking.code:
+                            return redirect('register_parking')
+                        else:
+                            return redirect('register_kyc')
+                else:
+                    return redirect('choose_location')
 
             except Parking.DoesNotExist:
                 # If the user doesn't have a related Parking entry, redirect to register parking
@@ -291,7 +294,7 @@ def register_owner_kyc(request):
 
 
 # ticket
-def book_ticket(request, parking_code="jjj"):
+def book_ticket(request):
     if request.method == 'POST':
         try:
             # parking = Parking.objects.get(code=parking_code)
@@ -300,7 +303,10 @@ def book_ticket(request, parking_code="jjj"):
             arrivalTime = request.POST.get('arrivalTime')
             departureTime = request.POST.get('departureTime')
             username = request.user.username
-            amount = request.POST.get('amount')
+            if vehicle_type=="Car":
+                amount = request.POST.get('car_charge')
+            else:
+                amount = request.POST.get('bike_charge')
             info = {
                 'parking_code': parking_code,
                 'arrivalTime': arrivalTime,
@@ -323,7 +329,6 @@ def book_ticket(request, parking_code="jjj"):
                 departureTime = departureTime,
                 parking_code = parking_code,
                 vehicle_type = vehicle_type,
-                amount = amount
                 # Other ticket fields here
             )
 
@@ -331,9 +336,6 @@ def book_ticket(request, parking_code="jjj"):
             ticket.qr_code.save(f'{ticket.pk}_qrcode.png', ContentFile(img_io.getvalue()), save=False)
             ticket.save()
             request.session['ticket_id'] = ticket.id
-            
-
-
 
             return redirect('qr_generator')
         except Exception as e:
@@ -346,16 +348,37 @@ def book_ticket(request, parking_code="jjj"):
 
 # my ticket
 def confirm_ticket(request, pk):
-    ticket = Ticket.objects.get(id=pk)
-    return render(request, 'customer/qr.html', {'ticket': ticket})
+    ticket = Parking.objects.get(id=pk)
+    return render(request, 'customer/confirm_ticket.html', {'ticket': ticket})
 
 
-    # Handle GET requests or other HTTP methods as needed
-    return HttpResponse('Invalid request method')  
 
 #QR code
 def qr_generator(request):
-    # parking_code = Ticket.objects.
-    info = {'name':'subash','checkin':'10:45:23','checkout':'9:45:32','Amount':'Rs 120'}
-    img = qrcode.make(info)
-    return render(request, 'customer/qr.html')
+    try:
+        ticket_id = request.session.get('ticket_id')
+        del request.session['ticket_id']
+        my_ticket = Ticket.objects.get(id=ticket_id)
+        return render(request, 'customer/qr.html', {"ticket": my_ticket})
+    except Exception as e:
+        return redirect('my_tickets')
+    
+def my_tickets(request):
+    user = request.user.username
+    tickets = None
+    if user:
+        if Ticket.objects.filter(username=user).exists():
+            tickets = Ticket.objects.filter(username=user)
+        return render(request, 'customer/my_bookings.html', {'tickets': tickets})
+    else:
+        return redirect('login')
+    
+
+def single_ticket(request, pk):
+    user = request.user.username
+    tickets = None
+    if user:
+        tickets = Ticket.objects.get(id=pk)
+        return render(request, 'customer/view.html', {'ticket': tickets})
+    else:
+        return redirect('login')

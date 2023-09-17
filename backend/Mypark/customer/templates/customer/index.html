@@ -42,11 +42,18 @@
             <li class="nav__item">
               <a href="#accessory" class="nav__link">Pricing</a>
             </li>
-
+{% if request.user %}
+<li class="nav__item">
+  <a href="{% url 'my_tickets' %}" class="nav-button">My Bookings</a>
+<!-- <i class="bx bx-toggle-left change-theme" id="theme-button"></i> -->
+</li>
+            
+            {% else %}
             <li class="nav__item">
-                <a href="{% url 'login' %}" class="nav-button">Login</a>
-              <!-- <i class="bx bx-toggle-left change-theme" id="theme-button"></i> -->
-            </li>
+              <a href="{% url 'login' %}" class="nav-button">Login</a>
+            <!-- <i class="bx bx-toggle-left change-theme" id="theme-button"></i> -->
+          </li>
+            {% endif %}
           </ul>
         </div>
 

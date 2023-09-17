@@ -55,29 +55,12 @@
             </div>
         </nav>
     </header>
-    <div class="grid">
-        <div class="userprofilemain">
-            <div class="userbookin">
-                <div class="QRmain">
-                    <div class="QRcode">
-                        <div class="code">
-                            <div class="top">SCAN</div>
-                            <img src="{{ticket.qr_code.url}}" alt="25615ABJBDHS35343214">
-                        </div>
-                    </div>
-
-                    <button class="TicketDownload">Download</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
+    {% for ticket in tickets %}
     <div class="ticketbox">
+
         <div class="ticketContainer">
             <div class="ticket">
-                <div class="ticketTitle">{{ticket.vehicle_type}} Parking</div>
+                <div class="ticketTitle">{{ticket.vehicle_type}} Parking <a style="display: flex; justify-content, font-size: 18;: space-between;" href="{% url 'view' ticket.id %}">View</a></div>
                 <hr>
                 <div class="ticketDetail">
                     <div>Parking no:&ensp; 5 </div>
@@ -99,7 +82,9 @@
             <div class="ticketShadow"></div>
         </div>
 
+
     </div>
+    {% endfor %}
     </div>
 
 
