@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from customer.views import scanner
 
 urlpatterns = [
     path('', views.my_bookings, name="bookings"),
@@ -7,4 +8,6 @@ urlpatterns = [
     path('bookings/bike', views.my_bike_bookings, name="my_bike_bookings"),
     path('bookings/active', views.my_active_bookings, name="my_active_bookings"),
     path('dashboard', views.owner_dashboard, name="owner_dashboard"),
+    path('scanner', scanner, name="scanner"),
+
 ]

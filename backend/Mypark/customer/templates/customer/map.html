@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Parking Location</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-     <style>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
         /* Updated map size and border styling */
         #map {
-            height: 600px; /* Adjust the height as desired */
+            height: 600px;
+            /* Adjust the height as desired */
             border: 2px solid #ccc;
             border-radius: 5px;
-            margin-right: 320px; /* Width of the panel in desktop view */
+            margin-right: 320px;
+            /* Width of the panel in desktop view */
         }
 
         /* Styling for the sliding panel */
         .panel {
             position: fixed;
             top: 0;
-            right: 0; /* Fixed to the right in desktop view */
-            width: 300px; /* Width of the panel in desktop view */
+            right: 0;
+            /* Fixed to the right in desktop view */
+            width: 300px;
+            /* Width of the panel in desktop view */
             height: 100%;
             background-color: #fff;
             overflow-y: auto;
@@ -52,16 +55,17 @@
             flex-direction: column;
             align-items: center;
         }
-        
+
         #searchInput {
             padding: 10px;
             font-size: 16px;
             border: 2px solid #ccc;
             border-radius: 5px;
             width: 80%;
-            margin-bottom: 10px; /* Add some margin below the input */
+            margin-bottom: 10px;
+            /* Add some margin below the input */
         }
-        
+
         #searchButton {
             padding: 10px 20px;
             font-size: 16px;
@@ -70,9 +74,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 50%; /* Set the button width to match the input */
+            width: 50%;
+            /* Set the button width to match the input */
         }
-        
+
         #searchButton:hover {
             background-color: #eb8e6d;
         }
@@ -90,8 +95,10 @@
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             padding: 10px;
-            max-height: 400px; /* Adjusted height */
-            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 400px;
+            /* Adjusted height */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
         }
 
         /* Style each nearby place item */
@@ -100,13 +107,15 @@
             padding: 10px;
             border-bottom: 1px solid #ddd;
             display: flex;
-            flex-direction: row; /* Arrange elements horizontally */
+            flex-direction: row;
+            /* Arrange elements horizontally */
             align-items: center;
         }
 
         /* Image style */
         .place-image {
-            max-width: 60px; /* Adjusted size */
+            max-width: 60px;
+            /* Adjusted size */
             margin-right: 10px;
         }
 
@@ -118,7 +127,8 @@
         /* Confirmation icon style */
         .confirmation-icon {
             font-size: 24px;
-            margin-left: 5px; /* Adjusted spacing */
+            margin-left: 5px;
+            /* Adjusted spacing */
         }
 
         /* Styling for address and price */
@@ -137,17 +147,17 @@
         #nearbyPlacesList.visible {
             display: block;
         }
-        
     </style>
 </head>
+
 <body>
-  <h1>Map of available parking</h1>
+    <h1>Map of available parking</h1>
 
     <!-- Overall container -->
     <div class="container">
         <!-- Map container -->
         <div id="map"></div>
-        
+
         <!-- Sliding panel with search bar and default nearby places list inside -->
         <div class="panel" id="infoPanel">
             <div class="panel-header">Place Details</div>
@@ -158,7 +168,7 @@
                     <button id="searchButton">Search</button>
                     <button id="clearButton">Clear</button>
                 </div>
-           
+
 
                 {% for parking in parkings %}
 
@@ -179,57 +189,45 @@
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
 
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
     <script>
-      var map = L.map('map');
-      var userMarker;
-      var routingControl;
 
-      map.setView([51.505, -0.09], 13);
+        var map = L.map('map').setView([{{lat}}, {{log}}], 15)
+        L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
 
-      navigator.geolocation.watchPosition(success, error);
-      let marker, circle, zoomed;
+        var sample_json = {
 
-      function success(pos){
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-          const accuracy = pos.coords.accuracy;
+            "type": "FeatureCollection",
+            "features": [
+            {% for parking in parkings %}
 
-          // Clear existing user's marker
-          if (userMarker) {
-              map.removeLayer(userMarker);
-          }
-
-          userMarker = L.marker([lat, lng]).addTo(map);
-
-          if(marker){
-              map.removeLayer(marker);
-              map.removeLayer(circle);
-          }
-
-          marker = L.marker([lat, lng]).addTo(map);
-          circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
-
-          if(zoomed){
-              zoomed = map.fitBounds(circle.getBounds());
-          }
-
-          map.setView([lat, lng]);
-      }
-
-      function error(err){
-          if(err === 1){
-              alert("Please allow geolocation access");
-          } else {
-              alert("Cannot get current location");
-          }
-      }
-
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            {{parking.longitude}},
+                            {{parking.latitude}}
+                        ]
+                    }
+                },
+                {% endfor %}
+               
+            ]
+        }
+        L.geoJSON(sample_json).addTo(map);
     </script>
 </body>
+
 </html>

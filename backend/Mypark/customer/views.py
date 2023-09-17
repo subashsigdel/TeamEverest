@@ -1,5 +1,6 @@
 import uuid
 import string
+import json
 import random
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login 
@@ -14,6 +15,7 @@ import qrcode
 from django.utils import timezone
 from django.core.files.base import ContentFile
 from PIL import Image
+from django.http import JsonResponse
 from io import BytesIO
 
 # Create your views here.
@@ -108,7 +110,7 @@ def customer_registration(request):
             auth_login(request, user)
 
             # Redirect to a success page or home page
-            return redirect('home')  # Replace 'home' with your desired URL name
+            return redirect('choose_location')  # Replace 'home' with your desired URL name
 
     else:
         error_message = ""
@@ -135,6 +137,8 @@ def location_search(request):
         location = request.POST['location']
         geolocator = Nominatim(user_agent="http")
         location2 = geolocator.geocode(location)
+        lat = location2.latitude
+        log = location2.longitude
         
         if location2:
             user_latitude = location2.latitude
@@ -159,7 +163,7 @@ def location_search(request):
                         parking.kyc_address = None
 
                     parkings_within_radius.append(parking)
-            return render(request, 'customer/map.html', {'parkings': parkings_within_radius})
+            return render(request, 'customer/map.html', {'parkings': parkings_within_radius, 'lat': lat, 'log': log})
 
     return render(request, 'customer/search.html')
     
@@ -382,3 +386,24 @@ def single_ticket(request, pk):
         return render(request, 'customer/view.html', {'ticket': tickets})
     else:
         return redirect('login')
+    
+
+
+def scanner(request):
+    if request.method == 'POST':
+        try:
+            # Retrieve the QR code data from the POST request
+            data = json.loads(request.body)
+            qr_data = data.get('qr_data')
+
+            # Process the QR code data as needed (e.g., save it to the database)
+            # ...
+
+            return JsonResponse({'message': 'QR code data received and processed successfully.'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        
+    else:
+        return render(request, 'customer/scan.html')
+
+ 

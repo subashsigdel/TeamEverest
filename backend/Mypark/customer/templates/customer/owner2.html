@@ -111,7 +111,7 @@
 							<button type="button" class="btn_back"><span class="icon"><ion-icon
 										name="arrow-back-sharp"></ion-icon></span><a
 									href="{% url 'register_account' %}">Back</a></button>
-							<button type="submit" class="btn_next"><a href="adminform3.html">Next</a> <span
+							<button type="submit" class="btn_next"><a href="{% url 'register_kyc' %}">Next</a> <span
 									class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
 						</div>
 					</div>
@@ -123,6 +123,7 @@
 	</div>
 
 	<script>
+		
 
 		// Function for hiding start and end task when the checkbox is ticked 
 		function checkFunction() {
