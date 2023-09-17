@@ -21,14 +21,14 @@
           <form action="{% url 'login' %}" autocomplete="off" class="sign-in-form" method="POST">
             {% csrf_token %}
             <div class="logo">
-              <img src="{%  static 'customer/img/logo.png' %}" alt="easyclass" />
-              <h4>easyclass</h4>
+              <img src="{%  static 'customer/img/logo.png' %}" alt="openpark" />
+              <h4>openpark</h4>
             </div>
 
             <div class="heading">
               <h2>Welcome Back</h2>
               <h6>Not registred yet?</h6>
-              <!-- <a href="{% url 'register' %}">Sign up</a> -->
+              <a href="{% url 'register' %}">Sign up</a>
             </div>
 
             <div class="actual-form">
