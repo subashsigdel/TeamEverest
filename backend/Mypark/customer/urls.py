@@ -13,8 +13,12 @@ urlpatterns = [
     path('register/account', views.register_owner_account, name="register_account"),
     path('register/parking', views.register_owner_parking, name="register_parking"),
     path('register/kyc', views.register_owner_kyc, name="register_kyc"),
-    path('ticket/confirmation', views.confirm_ticket, name="confirm_ticket"),
-    path('my/qr', views.book_ticket, name="qr_generator"),
+    path('ticket/confirmation/<int:pk>', views.confirm_ticket, name="confirm_ticket"),
+    path('book/ticket', views.book_ticket, name="book_ticket"),
+    path('my/qr', views.qr_generator, name="qr_generator"),
+    path('my/tickets', views.my_tickets, name="my_tickets"),
+    path('ticket/<int:pk>', views.single_ticket, name="view"),
+
 
 
 ]

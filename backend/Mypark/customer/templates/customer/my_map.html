@@ -164,19 +164,14 @@
 
                 <div id="nearbyPlacesList">
                     <div class="nearby-place">
-                        <form action="{% url 'qr_generator' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="vehicle_type" value="">
-                            <input name="parking_code" value="parkings.parking_code">
-                            <input value="" name="">
                         <img src="{{parkings.image}}" alt="Place Image" class="place-image">
                         <div class="place-details">
-                            <span class="place-name">Boudha chowk</span>
-                            <span class="address">thau</span>
+                            <span class="place-name">{{parkings.address}}</span>
+                            <span class="address"></span>
                             <span class="price">Bike/Car: Rs. {{parkings.bike_charge}}/{{parkings.car_charge}} per hour</span>
                         </div>
                         <span class="icon icon-bike-car">🚲/🚗</span>
-<input type="submit" value="Confirm">                    </form>
+                        <button type="button"><a href="{% url 'confirm_ticket' parkings.id %}">Confirm</a></button>
                     </div>
                 </div>
             </div>

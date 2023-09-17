@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
        />
    
        <!--========== CSS ==========-->
-       <link rel="stylesheet" href="./css/styles.css" />
+       <link rel="stylesheet" href="{% static 'customer/css/styles.css' %}" />
        <style>
         .formdiv{
             width: 50%;
@@ -99,7 +100,7 @@
                 </li>
     
                 <li class="nav__item">
-                    <a href={% url 'login' %} class="nav-button">Logout</a>
+                    <a href="{% url 'login' %}" class="nav-button">Logout</a>
                   
                 </li>
                 <li><div class="profilelogo"><img src="./Bike_Icon.png" alt="profie"></div></li>
@@ -117,18 +118,22 @@
         <h3>Make Your Booking</h3>
         
         <div class="formdiv">
-          <form action="">
-            <label for="name">User Name</label>
-            <input type="text" id="name" name="username" placeholder="Your name..">
+          <form action="{% url 'book_ticket' %}" method="POST">
+            {% csrf_token %}
+           
             <label for="dtime">departureTime</label>
-            <input type="text" id="dtime" name="departureTime" placeholder="departureTime">
+            <input type="time" id="dtime" name="departureTime" placeholder="departureTime">
             <label for="atime">Arrival Time</label>
-            <input type="text" id="dtime" name="arrivalTime" placeholder="ArrivalTime">
+            <input type="time" id="dtime" name="arrivalTime" placeholder="ArrivalTime">
             <label for="country">Select Vehicle Category</label>
-            <select id="country" name="country">
+            <select id="country" name="vehicle_type">
               <option value="Car">Car</option>
               <option value="Bike">Bike</option>
             </select>
+            <input type="hidden" name="parking_code" value="{{ticket.parking_code}}">
+            <input type="hidden" name="car_charge" value="{{ticket.car_charge}}">
+            <input type="hidden" name="bike_charge" value="{{ticket.bike_charge}}">
+
           
             <input type="submit" value="Submit">
           </form>
