@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <link rel="stylesheet" href="{% static 'customer/user_booking.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/css/QR.css' %}">
+    <!--========== BOX ICONS ==========-->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'customer/css/styles.css' %}" />
+
+
+</head>
+
+<body>
+    <!--========== SCROLL TOP ==========-->
+    <a href="#" class="scrolltop" id="scroll-top">
+        <i class="bx bx-up-arrow-alt scrolltop__icon"></i>
+    </a>
+
+    <!--========== HEADER ==========-->
+    <header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a href="#" class="nav__logo">OPEN<b>PARK</b></a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link active-link">Profile</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#decoration" class="nav__link">Features</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#accessory" class="nav__link">Pricing</a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="{% url 'login' %}" class="nav-button">Logout</a>
+
+                    </li>
+
+                    <!-- <li><div class="profilelogo"><img src="{% static 'customer/img/Bike_Icon.png' %}" alt="profie"></div></li> -->
+                </ul>
+
+            </div>
+
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="bx bx-grid-alt"></i>
+            </div>
+        </nav>
+    </header>
+    <div class="grid">
+        <div class="userprofilemain">
+            <div class="userbookin">
+                <div class="QRmain">
+                    <div class="QRcode">
+                        <div class="code">
+                            <div class="top">SCAN</div>
+                            <img src="{{qr_code.url}}" alt="25615ABJBDHS35343214">
+                        </div>
+                    </div>
+
+                    <button class="TicketDownload">Download</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ticketbox">
+        <div class="ticketContainer">
+            <div class="ticket">
+                {% if vehicle_type=="Bike"}
+                <div class="ticketTitle">Bike Parking</div>
+                {% else %}
+                <div class="ticketTitle">Car Parking</div>
+                {% endif %}
+                <hr>
+                <div class="ticketDetail">
+                    <div>Parking no:&ensp; 5 </div>
+                    <div>place:&nbsp; durbarmarg</div>
+                    <div>Arrival Time:&emsp; {{arrivalTime}}</div>
+                    <div>End Time:&emsp; {{departureTime}}</div>
+
+                </div>
+                <div class="ticketRip">
+                    <div class="circleLeft"></div>
+                    <div class="ripLine"></div>
+                    <div class="circleRight"></div>
+                </div>
+                <div class="ticketSubDetail">
+                    <div class="code">{{code}}</div>
+                    <div class="date"> {{booked_date}}</div>
+                </div>
+            </div>
+            <div class="ticketShadow"></div>
+        </div>
+
+    </div>
+    </div>
+
+
+</body>
+
+</html>

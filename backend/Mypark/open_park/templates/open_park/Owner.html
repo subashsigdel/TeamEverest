@@ -61,7 +61,7 @@
       <div class="cardbike">
         <div class="bike">
           <img src="{% static 'owner/img/bike.png' %}" alt="" srcset="">
-          <div class="text" >Total Bikes <div id="biketext"></div> </div>
+          <div class="text" >Total Bikes <div>{{total_bikes}}</div> </div>
           
         </div>
         
@@ -69,7 +69,7 @@
       <div class="cardcar">
         <div class="car">
           <img src="{% static 'owner/img/car.png' %}" alt="" srcset="">
-          <div class="text" >Total cars <div id="cartext"></div></div>
+          <div class="text" >Total cars <div>{{total_cars}}</div></div>
 
         </div>
         
@@ -265,79 +265,201 @@
 
   
     <script>
-
-      window.onload = function () {
-
-          var chart = new CanvasJS.Chart("chartContainer", {
-
-              animationEnabled: true,
-
-              theme: "light2",
-
-              title: {
-
-                  text: "Earnings Chart"
-
-              },
-
-              axisX: {
-
-                  title: "Days" // Label for X-axis
-
-              },
-
-              axisY: {
-
-                  title: "Earnings (in Rs.)" // Label for Y-axis
-
-              },
-
-              data: [{
-
-                  type: "line",
-
-                  indexLabelFontSize: 16,
-
-                  dataPoints: [
-
-                      { label: "Day 1", y: 450 },
-
-                      { label: "Day 2", y: 414 },
-
-                      { label: "Day 3", y: 520, indexLabel: "\u2191 highest", markerColor: "red", markerType: "triangle" },
-
-                      { label: "Day 4", y: 460 },
-
-                      { label: "Day 5", y: 450 },
-
-                      { label: "Day 6", y: 500 },
-
-                      { label: "Day 7", y: 480 },
-
-                      { label: "Day 8", y: 480 },
-
-                      { label: "Day 9", y: 410, indexLabel: "\u2193 lowest", markerColor: "DarkSlateGrey", markerType: "cross" },
-
-                      { label: "Day 10", y: 500 },
-
-                      { label: "Day 11", y: 480 },
-
-                      { label: "Day 12", y: 510 }
-
-                  ]
-
-              }]
-
-          });
-
-          chart.render();
-
+      // Retrieve chart data from the context
+      var dates = {{ dates|safe }};
+      var daily_total_amounts = {{ daily_total_amounts|safe }};
+  
+      // Initialize an empty array to store the dataPoints
+      var dataPoints = [];
+  
+      // Loop through the dates and daily_total_amounts to create dataPoints
+      for (var i = 0; i < dates.length; i++) {
+          var label = "Day " + (i + 1);
+          var y = daily_total_amounts[i];
+  
+          // You can add conditions to check for highest and lowest values
+          // For example, checking if it's the highest value and marking it with a triangle
+          if (i === indexOfHighestValue(daily_total_amounts)) {
+              dataPoints.push({ label: label, y: y, indexLabel: "\u2191 highest", markerColor: "red", markerType: "triangle" });
+          }
+          // Similarly, check for the lowest value and mark it with a cross
+          else if (i === indexOfLowestValue(daily_total_amounts)) {
+              dataPoints.push({ label: label, y: y, indexLabel: "\u2193 lowest", markerColor: "DarkSlateGrey", markerType: "cross" });
+          }
+          else {
+              dataPoints.push({ label: label, y: y });
+          }
       }
-
+  
+      // Function to find the index of the highest value in an array
+      function indexOfHighestValue(arr) {
+          return arr.indexOf(Math.max(...arr));
+      }
+  
+      // Function to find the index of the lowest value in an array
+      function indexOfLowestValue(arr) {
+          return arr.indexOf(Math.min(...arr));
+      }
+  
+      // Now, you can use the dataPoints array in your chart configuration
+      var chart = new CanvasJS.Chart("chartContainer", {
+          // Chart configuration options
+          data: [{
+              type: "line",
+              dataPoints: dataPoints
+          }]
+      });
+  
+      chart.render();
   </script>
+  
             
 
+ <script>
+  const progressBarContainer = document.querySelector('.progress-bar__container');
+
  
+
+const progressBar = document.querySelector('.progress-bar');
+
+ 
+
+const progressBarText = document.querySelector('.progress-bar__text');
+
+ 
+
+ 
+
+ 
+
+const targetPercentage = {{available_slot_percentage}}; // You can set the desired percentage here
+
+ 
+
+ 
+
+ 
+
+const getColor = (percentage) => {
+
+ 
+
+    if (percentage <= 30) {
+
+ 
+
+        return 'green';
+
+ 
+
+    } else if (percentage >= 100) {
+
+ 
+
+        return 'red';
+
+ 
+
+    } else {
+
+ 
+
+        return 'yellow';
+
+ 
+
+    }
+
+ 
+
+};
+
+ 
+
+ 
+
+ 
+
+const setColor = (percentage) => {
+
+ 
+
+    const color = getColor(percentage);
+
+ 
+
+    progressBar.style.backgroundColor = color;
+
+ 
+
+};
+
+ 
+
+ 
+
+ 
+
+gsap.to(progressBar, {
+
+ 
+
+    width: `${targetPercentage}%`,
+
+ 
+
+    duration: 2,
+
+ 
+
+    onUpdate: () => {
+
+ 
+
+        const currentWidth = parseFloat(progressBar.style.width);
+
+ 
+
+        const displayText = currentWidth === 100 ? 'Parking Full' : `${Math.round(currentWidth)}% full`;
+
+ 
+
+        progressBarText.textContent = displayText;
+
+ 
+
+        setColor(currentWidth);
+
+ 
+
+    },
+
+ 
+
+    onComplete: () => {
+
+ 
+
+        progressBarText.style.display = "initial";
+
+ 
+
+        progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+
+ 
+
+    }
+
+ 
+
+});
+var bikecount = 20
+var carcount = 30
+document.getElementById('biketext').innerHTML = (bikecount)
+document.getElementById('cartext').innerHTML = (carcount)
+
+ 
+ </script>
 
  
 

@@ -56,7 +56,7 @@
               class="decoration__img"
             />
             <h3 class="decoration__title">Two-wheeler Parking</h3>
-            <a href="userSearchLocation.html" class="button button-link">Choose</a>
+            <a href="{% url 'search' %}?query=Bike" class="button button-link">Choose</a>
 
           </div>
 
@@ -67,7 +67,7 @@
               class="decoration__img"
             />
             <h3 class="decoration__title">Four-wheeler Parking</h3>
-            <a href="userSearchLocation.html" class="button button-link">Choose</a>
+            <a href="{% url 'search' %}?query=Car" class="button button-link">Choose</a>
 
           </div>
       </section>
@@ -137,7 +137,7 @@
         <script src="https://unpkg.com/scrollreveal"></script>
 
         <!--========== MAIN JS ==========-->
-        <script src="{%  static 'customer/js/main.js"></script>
+        <script src="{%  static 'customer/js/main.js' %}"></script>
         <script>
             let suggestions = [
     "Channel",

@@ -1,73 +1,235 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Map Parking Location</title>
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-
     crossorigin=""/>
 
- 
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-
      crossorigin=""></script>
-     <link rel="stylesheet" href="static/customer/css/map.css">
+     <style>
+        /* Updated map size and border styling */
+        #map {
+            height: 600px; /* Adjust the height as desired */
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-right: 320px; /* Width of the panel in desktop view */
+        }
 
-     
+        /* Styling for the sliding panel */
+        .panel {
+            position: fixed;
+            top: 0;
+            right: 0; /* Fixed to the right in desktop view */
+            width: 300px; /* Width of the panel in desktop view */
+            height: 100%;
+            background-color: #fff;
+            overflow-y: auto;
+            box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5);
+        }
 
+        .panel-header {
+            text-align: center;
+            padding: 10px;
+            background-color: #F57C51;
+            color: white;
+            font-weight: bold;
+        }
+
+        .panel-content {
+            padding: 20px;
+        }
+
+        /* Center and style the search box inside the panel */
+        .search-container {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #searchInput {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+            margin-bottom: 10px; /* Add some margin below the input */
+        }
+        
+        #searchButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #F57C51;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 50%; /* Set the button width to match the input */
+        }
+        
+        #searchButton:hover {
+            background-color: #eb8e6d;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #F57C51;
+            margin-top: 20px;
+        }
+
+        /* Styling for the nearby places list */
+        #nearbyPlacesList {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            max-height: 400px; /* Adjusted height */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        /* Style each nearby place item */
+        .nearby-place {
+            margin: 5px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-direction: row; /* Arrange elements horizontally */
+            align-items: center;
+        }
+
+        /* Image style */
+        .place-image {
+            max-width: 60px; /* Adjusted size */
+            margin-right: 10px;
+        }
+
+        /* Place details style */
+        .place-details {
+            flex-grow: 1;
+        }
+
+        /* Confirmation icon style */
+        .confirmation-icon {
+            font-size: 24px;
+            margin-left: 5px; /* Adjusted spacing */
+        }
+
+        /* Styling for address and price */
+        .address {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .price {
+            font-size: 14px;
+            color: #F57C51;
+            margin-top: 5px;
+        }
+
+        /* Show the list when needed */
+        #nearbyPlacesList.visible {
+            display: block;
+        }
+        
+    </style>
 </head>
-
 <body>
+  <h1>Map of available parking</h1>
 
-    <h1>Map of available parking</h1>
+    <!-- Overall container -->
+    <div class="container">
+        <!-- Map container -->
+        <div id="map"></div>
+        
+        <!-- Sliding panel with search bar and default nearby places list inside -->
+        <div class="panel" id="infoPanel">
+            <div class="panel-header">Place Details</div>
+            <div class="panel-content" id="infoContent">
+                <!-- Place details will be populated here -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Enter location">
+                    <button id="searchButton">Search</button>
+                    <button id="clearButton">Clear</button>
+                </div>
+           
 
- 
+                {% for parking in parkings %}
 
-    <!-- Sliding panel with search bar inside -->
-
-    <div class="panel" id="infoPanel">
-
-        <div class="panel-header">Place Details</div>
-
-        <div class="panel-content" id="infoContent">
-
-            <!-- Place details will be populated here -->
-
-            <div class="search-container">
-
-                <input type="text" id="searchInput" placeholder="Enter location">
-
-                <button id="searchButton">Search</button>
-
-                <button id="clearButton">Clear</button>
-
+                <div id="nearbyPlacesList">
+                    <div class="nearby-place">
+                        <img src="{{parking.image}}" alt="Place Image" class="place-image">
+                        <div class="place-details">
+                            <span class="place-name">Boudha chowk</span>
+                            <span class="address">thau</span>
+                            <span class="price">Bike/Car: Rs. {{parking.bike_charge}}/{{car_charge}} per hour</span>
+                        </div>
+                        <span class="icon icon-bike-car">🚲/🚗</span>
+                        <button><a href="{% url 'my_parkings' parking.id %}">Confirm</a></button>
+                        <span class="confirmation-icon">✅</span>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-
         </div>
-
     </div>
 
- 
+    <script>
+      var map = L.map('map');
+      var userMarker;
+      var routingControl;
 
-    <!-- Map with adjusted size -->
+      map.setView([51.505, -0.09], 13);
 
-    <div id="map"></div>
-    <script src="static/customer/js/map.js"></script>
- 
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
 
+      navigator.geolocation.watchPosition(success, error);
+      let marker, circle, zoomed;
 
+      function success(pos){
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const accuracy = pos.coords.accuracy;
+
+          // Clear existing user's marker
+          if (userMarker) {
+              map.removeLayer(userMarker);
+          }
+
+          userMarker = L.marker([lat, lng]).addTo(map);
+
+          if(marker){
+              map.removeLayer(marker);
+              map.removeLayer(circle);
+          }
+
+          marker = L.marker([lat, lng]).addTo(map);
+          circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+          if(zoomed){
+              zoomed = map.fitBounds(circle.getBounds());
+          }
+
+          map.setView([lat, lng]);
+      }
+
+      function error(err){
+          if(err === 1){
+              alert("Please allow geolocation access");
+          } else {
+              alert("Cannot get current location");
+          }
+      }
+
+    </script>
 </body>
-
 </html>

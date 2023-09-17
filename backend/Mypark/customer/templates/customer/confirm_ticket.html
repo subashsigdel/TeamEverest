@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <link rel="stylesheet" href="QR.css">
+         <!--========== BOX ICONS ==========-->
+         <link
+         href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+         rel="stylesheet"
+       />
+   
+       <!--========== CSS ==========-->
+       <link rel="stylesheet" href="./css/styles.css" />
+       <style>
+        .formdiv{
+            width: 50%;
+            border: solid 0.2rem black;
+            border-radius: 0.5rem;
+            box-shadow: 8px 8px rgb(116, 114, 114);
+            margin-left: 22rem;
+        }
+        h3{
+            text-align: center;
+            font-weight: bold;
+            
+        }
+        label{
+            margin-left: 1rem;
+            margin-top: 8px;
+        }
+        input[type=text], select {
+            
+          width: 96%;
+          padding: 12px 20px;
+          margin-left: 1rem;
+          margin-top: 8px;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+        input[type=submit] {
+          width: 100%;
+          background-color: #05bea0;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        input[type=submit]:hover {
+          background-color: #045a39;
+        }
+        
+        .fromdiv {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px;
+        }
+
+        .profilelogo img{
+            margin-left: 18px;
+            width: 40px;
+            height: 45px;
+        }
+.mainform{
+    margin-top: 6rem;
+}
+
+        </style>
+</head>
+<body>
+        <!--========== SCROLL TOP ==========-->
+        <a href="#" class="scrolltop" id="scroll-top">
+          <i class="bx bx-up-arrow-alt scrolltop__icon"></i>
+        </a>
+    
+        <!--========== HEADER ==========-->
+        <header class="l-header" id="header">
+          <nav class="nav bd-container">
+            <a href="#" class="nav__logo">OPEN<b>PARK</b></a>
+    
+            <div class="nav__menu" id="nav-menu">
+              <ul class="nav__list">
+                <li class="nav__item">
+                  <a href="#home" class="nav__link active-link">Profile</a>
+                </li>
+                <li class="nav__item">
+                  <a href="#decoration" class="nav__link">Make Your booking</a>
+                </li>
+                <li class="nav__item">
+                  <a href="#accessory" class="nav__link">Pricing</a>
+                </li>
+    
+                <li class="nav__item">
+                    <a href={% url 'login' %} class="nav-button">Logout</a>
+                  
+                </li>
+                <li><div class="profilelogo"><img src="./Bike_Icon.png" alt="profie"></div></li>
+              </ul>
+              
+            </div>
+            
+    
+            <div class="nav__toggle" id="nav-toggle">
+              <i class="bx bx-grid-alt"></i>
+            </div>
+          </nav>
+        </header>
+<div class="mainform">
+        <h3>Make Your Booking</h3>
+        
+        <div class="formdiv">
+          <form action="">
+            <label for="name">User Name</label>
+            <input type="text" id="name" name="username" placeholder="Your name..">
+            <label for="dtime">departureTime</label>
+            <input type="text" id="dtime" name="departureTime" placeholder="departureTime">
+            <label for="atime">Arrival Time</label>
+            <input type="text" id="dtime" name="arrivalTime" placeholder="ArrivalTime">
+            <label for="country">Select Vehicle Category</label>
+            <select id="country" name="country">
+              <option value="Car">Car</option>
+              <option value="Bike">Bike</option>
+            </select>
+          
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+    </div>
+
+    
+</body>
+</html>
