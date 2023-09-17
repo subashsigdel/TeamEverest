@@ -1,3 +1,5 @@
+import random
+import string
 from django.shortcuts import render, redirect
 from .models import *
 from customer.models import Ticket
@@ -148,3 +150,4 @@ def owner_dashboard(request):
         })
     else:
         return redirect('login')
+

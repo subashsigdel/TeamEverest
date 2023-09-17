@@ -25,6 +25,8 @@ def upload_kyc_picture(instance, filename):
 class Parking(models.Model):
     code = models.CharField(max_length=255, null=True, blank=True)
     owner= models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True, default="Parking")
+    address = models.CharField(max_length=255, null=True, blank=True, default="Kathmandu")
     car_slot = models.IntegerField(null=True, blank=True)
     bike_slot = models.IntegerField(null=True, blank=True)
     car_charge = models.IntegerField(null=True, blank=True)

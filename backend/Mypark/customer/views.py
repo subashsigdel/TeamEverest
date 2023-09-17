@@ -1,14 +1,32 @@
-import uuid 
+import uuid
+import string
+import random
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login 
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from customer.models import Ticket
 from geopy.geocoders import Nominatim
 from open_park.models import Parking, KYC
 from geopy.distance import geodesic
 from django.contrib import messages
+import qrcode
+from django.utils import timezone
+from django.core.files.base import ContentFile
+from PIL import Image
+from io import BytesIO
 
 # Create your views here.
+
+
+
+def generate_random_code():
+    characters = string.digits  # Use only digits (0-9)
+    code_length = 6
+    random_code = ''.join(random.choice(characters) for _ in range(code_length))
+    return random_code
+
+
 
 def user_index(request):
     return render(request, 'customer/index.html')
@@ -109,6 +127,7 @@ def choose_location(request):
 
 # User Search Location 
 def location_search(request):
+
     if request.method == 'POST':
         location = request.POST['location']
         geolocator = Nominatim(user_agent="http")
@@ -142,7 +161,13 @@ def location_search(request):
     return render(request, 'customer/search.html')
     
 
-
+# My parking
+def my_parking(request, pk):
+    parkings = Parking.objects.get(id=pk)
+    context = {
+        'parkings': parkings
+    }
+    return render(request, 'customer/my_map.html', context)
 
 # for map
 def select_park(request):
@@ -265,6 +290,72 @@ def register_owner_kyc(request):
     return render(request, 'customer/owner3.html', context)
 
 
+# ticket
+def book_ticket(request, parking_code="jjj"):
+    if request.method == 'POST':
+        try:
+            # parking = Parking.objects.get(code=parking_code)
+            vehicle_type = request.POST.get('vehicle_type') 
+            parking_code = request.POST.get('parking_code')
+            arrivalTime = request.POST.get('arrivalTime')
+            departureTime = request.POST.get('departureTime')
+            username = request.user.username
+            amount = request.POST.get('amount')
+            info = {
+                'parking_code': parking_code,
+                'arrivalTime': arrivalTime,
+                'arrivalTime': departureTime,
+                'username': username,
+            }
+            img = qrcode.make(info)
+
+            # Convert the QR code image to a Django ImageField
+            img_io = BytesIO()
+            img.save(img_io, format='PNG')  # Save the QR code as PNG
+
+            ticket = Ticket.objects.create(
+                code=generate_random_code(),
+                username=request.user.username,
+                status='Reserved',  # Set the initial status to Reserved
+                booked_date=timezone.now(),
+                amount = amount,
+                arrivalTime = arrivalTime,
+                departureTime = departureTime,
+                parking_code = parking_code,
+                vehicle_type = vehicle_type,
+                amount = amount
+                # Other ticket fields here
+            )
+
+            # Attach the QR code image to the ticket's qr_code field
+            ticket.qr_code.save(f'{ticket.pk}_qrcode.png', ContentFile(img_io.getvalue()), save=False)
+            ticket.save()
+            request.session['ticket_id'] = ticket.id
+            
+
+
+
+            return redirect('qr_generator')
+        except Exception as e:
+            # Handle exceptions as needed
+            print(e)
+            return HttpResponse('Error occurred while booking the ticket')
+    else:
+        return render(request, 'customer/confirm_ticket.html')
+
+
+# my ticket
+def confirm_ticket(request, pk):
+    ticket = Ticket.objects.get(id=pk)
+    return render(request, 'customer/qr.html', {'ticket': ticket})
+
+
+    # Handle GET requests or other HTTP methods as needed
+    return HttpResponse('Invalid request method')  
+
 #QR code
 def qr_generator(request):
-    return render(request, 'customer/')
+    # parking_code = Ticket.objects.
+    info = {'name':'subash','checkin':'10:45:23','checkout':'9:45:32','Amount':'Rs 120'}
+    img = qrcode.make(info)
+    return render(request, 'customer/qr.html')

@@ -142,7 +142,9 @@
 </head>
 <body>
   <h1>Map of available parking</h1>
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-routing-machine/dist/leaflet-routing-machine.css">
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  
     <!-- Overall container -->
     <div class="container">
         <!-- Map container -->
@@ -160,76 +162,100 @@
                 </div>
            
 
-                {% for parking in parkings %}
-
                 <div id="nearbyPlacesList">
                     <div class="nearby-place">
-                        <img src="{{parking.image}}" alt="Place Image" class="place-image">
+                        <form action="{% url 'qr_generator' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="vehicle_type" value="">
+                            <input name="parking_code" value="parkings.parking_code">
+                            <input value="" name="">
+                        <img src="{{parkings.image}}" alt="Place Image" class="place-image">
                         <div class="place-details">
                             <span class="place-name">Boudha chowk</span>
                             <span class="address">thau</span>
-                            <span class="price">Bike/Car: Rs. {{parking.bike_charge}}/{{car_charge}} per hour</span>
+                            <span class="price">Bike/Car: Rs. {{parkings.bike_charge}}/{{parkings.car_charge}} per hour</span>
                         </div>
                         <span class="icon icon-bike-car">🚲/🚗</span>
-                        <button><a href="{% url 'my_parkings' parking.id %}">Confirm</a></button>
-                        <span class="confirmation-icon">✅</span>
+<input type="submit" value="Confirm">                    </form>
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
 
     <script>
-      var map = L.map('map');
-      var userMarker;
-      var routingControl;
-
-      map.setView([51.505, -0.09], 13);
-
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
-
-      navigator.geolocation.watchPosition(success, error);
-      let marker, circle, zoomed;
-
-      function success(pos){
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-          const accuracy = pos.coords.accuracy;
-
-          // Clear existing user's marker
-          if (userMarker) {
-              map.removeLayer(userMarker);
-          }
-
-          userMarker = L.marker([lat, lng]).addTo(map);
-
-          if(marker){
-              map.removeLayer(marker);
-              map.removeLayer(circle);
-          }
-
-          marker = L.marker([lat, lng]).addTo(map);
-          circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
-
-          if(zoomed){
-              zoomed = map.fitBounds(circle.getBounds());
-          }
-
-          map.setView([lat, lng]);
-      }
-
-      function error(err){
-          if(err === 1){
-              alert("Please allow geolocation access");
-          } else {
-              alert("Cannot get current location");
-          }
-      }
-
+        var map = L.map('map');
+        var userMarker;
+        var routingControl;
+    
+        map.setView([51.505, -0.09], 13);
+    
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+    
+        navigator.geolocation.watchPosition(success, error);
+        let marker, circle, zoomed;
+    
+        function success(pos) {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            const accuracy = pos.coords.accuracy;
+    
+            // Clear existing user's marker
+            if (userMarker) {
+                map.removeLayer(userMarker);
+            }
+    
+            userMarker = L.marker([lat, lng]).addTo(map);
+    
+            if (marker) {
+                map.removeLayer(marker);
+                map.removeLayer(circle);
+            }
+    
+            marker = L.marker([lat, lng]).addTo(map);
+            circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+    
+            if (zoomed) {
+                zoomed = map.fitBounds(circle.getBounds());
+            }
+    
+            map.setView([lat, lng]);
+        }
+    
+        function error(err) {
+            if (err === 1) {
+                alert("Please allow geolocation access");
+            } else {
+                alert("Cannot get current location");
+            }
+        }
+    
+        // Function to calculate and display the route to a parking location
+        function calculateRouteToParking(parkingLat, parkingLng) {
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+    
+            var parkingLocation = L.latLng(parkingLat, parkingLng);
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(lat, lng), // Your current location
+                    parkingLocation // Parking location
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+        }
+    
+        // Add event listener to the button for route calculation
+        document.getElementById('calculateRouteButton').addEventListener('click', function () {
+            // Replace these coordinates with the actual parking location's latitude and longitude
+            var parkingLat = 51.51; // Replace with the parking location's latitude
+            var parkingLng = -0.1; // Replace with the parking location's longitude
+            calculateRouteToParking(parkingLat, parkingLng);
+        });
     </script>
 </body>
 </html>
