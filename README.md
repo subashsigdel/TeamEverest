@@ -1,4 +1,8 @@
 # TeamEverest
+# Project Discriptions
+---
+OPEN PARK
+---
 
 "Open Park" is a web-based application designed to address the challenges of urban parking systems, with a primary focus on solving parking issues in areas like Kathmandu. The project comprises three distinct user panels and caters to three types of users:
 
@@ -26,3 +30,17 @@ Profit Generation: "Open Park" aims to create a win-win situation: house owners 
 
 
 The application's success relies on effective collaboration between house owners, end customers, and the Super Admin, making urban parking more accessible and efficient in areas like Kathmandu.
+
+
+
+---
+#Run Project
+
+To run Project install Django in your system then
+# Frist clone thi repo:
+git clone https://github.com/subashsigdel/TeamEverest
+# run in commmand:
+pip install -r requirements.txt
+# Then
+python manage.py runserver
+
