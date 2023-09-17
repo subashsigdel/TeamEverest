@@ -1,0 +1,33 @@
+
+*{
+    margin:0;
+    padding: 0;
+
+}
+
+.scannermain{
+    
+    width: 70%;
+    height: 100vh;
+    margin: auto;
+
+}
+.main{
+
+    height: 100vh;
+}
+.head{
+    text-align: center;
+    color: orangered;
+    font-weight: bolder;
+    font-size: 3rem;
+
+}
+.title{
+    text-align: center;
+    color: orangered;
+    font-weight: bolder;
+    font-size: 2rem;
+    font-style: italic;
+
+}

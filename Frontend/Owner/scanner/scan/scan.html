@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner</title>
+    <link rel="stylesheet" href="scan.css">
+</head>
+<body>
+<div class="scannermain">
+    <div class="main">
+        
+    
+    <div class="scanhead">
+        <h1 class="head">Open Park</h1>
+        <h3 class="title">Scanner For Parking Verification</h3>
+    </div>
+    <div class="opencamera">
+        <div class="camera">
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    let but = document.getElementById("but");
+                    let video = document.getElementById("vid");
+                    let mediaDevices = navigator.mediaDevices;
+                    vid.muted = true;
+                    but.addEventListener("click", () => {
+             
+                        // Accessing the user camera and video.
+                        mediaDevices
+                            .getUserMedia({
+                                video: true,
+                                audio: true,
+                            })
+                            .then((stream) => {
+             
+                                // Changing the source of video to current stream.
+                                video.srcObject = stream;
+                                video.addEventListener("loadedmetadata", () => {
+                                    video.play();
+                                });
+                            })
+                            .catch(alert);
+                    });
+                });
+            </script>
+            <style>
+                .videodiv {
+                    width: 480px;
+                    height: 450px;
+                    border: 2px solid rgb(255, 196, 3);
+                    
+                    margin: auto;
+                }
+             
+                video {
+                    width: 480px;
+                    height: 450px;
+                    object-fit: cover;
+                    margin: auto;
+                }
+                .webbutton{
+                    margin-top: 2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .webbutton button{
+                    height: 2rem;
+                    width: 8rem;
+                    background-color: rgb(8, 255, 119);
+                    border: solid 0.2rem orangered;
+                    color: rgb(12, 77, 255);
+                    font-weight: bold;
+                }
+            </style>
+            <div class="videodiv">
+                <video id="vid"></video>
+            </div>
+            <div class="webbutton" >
+            <button id="but" autoplay>
+                SCAN
+            </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+<script src="scan.js"></script>
+    
+</body>
+</html>
