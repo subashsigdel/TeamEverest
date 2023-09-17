@@ -105,7 +105,7 @@ def customer_registration(request):
 
             # Authenticate and log in the user
             user = authenticate(username=username, password=password)
-            login(request, user)
+            auth_login(request, user)
 
             # Redirect to a success page or home page
             return redirect('home')  # Replace 'home' with your desired URL name
