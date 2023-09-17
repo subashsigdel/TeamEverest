@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Map Parking Location</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+
+    crossorigin=""/>
+
+ 
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+
+     crossorigin=""></script>
+
+     <style>
+
+        /* Updated map size and border styling */
+
+        #map {
+
+            height: 600px; /* Adjust the height as desired */
+
+            border: 2px solid #ccc;
+
+            border-radius: 5px;
+
+            margin-right: 320px; /* Width of the panel in desktop view */
+
+        }
+
+ 
+
+        /* Styling for the sliding panel */
+
+        .panel {
+
+            position: fixed;
+
+            top: 0;
+
+            right: 0; /* Fixed to the right in desktop view */
+
+            width: 300px; /* Width of the panel in desktop view */
+
+            height: 100%;
+
+            background-color: #fff;
+
+            overflow-y: auto;
+
+            box-shadow: -1px 0px 10px rgba(0, 0, 0, 0.5);
+
+        }
+
+ 
+
+        .panel-header {
+
+            text-align: center;
+
+            padding: 10px;
+
+            background-color: #F57C51;
+
+            color: white;
+
+            font-weight: bold;
+
+        }
+
+ 
+
+        .panel-content {
+
+            padding: 20px;
+
+        }
+
+ 
+
+        /* Center and style the search box inside the panel */
+
+        .search-container {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+       
+
+        #searchInput {
+
+            padding: 10px;
+
+            font-size: 16px;
+
+            border: 2px solid #ccc;
+
+            border-radius: 5px;
+
+            width: 80%;
+
+            margin-bottom: 10px; /* Add some margin below the input */
+
+        }
+
+       
+
+        #searchButton {
+
+            padding: 10px 20px;
+
+            font-size: 16px;
+
+            background-color: #F57C51;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            width: 50%; /* Set the button width to match the input */
+
+        }
+
+       
+
+        #searchButton:hover {
+
+            background-color: #eb8e6d;
+
+        }
+
+ 
+
+        h1 {
+
+           
+
+            font-size: 24px;
+
+            color: #F57C51;
+
+            margin-top: 20px;
+
+        }
+
+ 
+
+        /* Styling for the nearby places list */
+
+        #nearbyPlacesList {
+
+            margin-top: 20px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+            padding: 10px;
+
+        }
+
+ 
+
+        /* Style each nearby place item */
+
+        .nearby-place {
+
+            margin: 5px 0;
+
+            padding: 5px;
+
+            border-bottom: 1px solid #ddd;
+
+        }
+
+ 
+
+        .hidden {
+
+          display: none;
+
+      }
+
+ 
+
+      /* Show nearby places list when needed */
+
+      #nearbyPlacesList.visible {
+
+          display: block;
+
+      }
+
+ 
+
+       
+
+    </style>
+
+</head>
+
+<body>
+
+  <h1>Map of available parking</h1>
+
+ 
+
+    <!-- Overall container -->
+
+    <div class="container">
+
+        <!-- Map container -->
+
+        <div id="map"></div>
+
+       
+
+        <!-- Sliding panel with search bar and nearby places list inside -->
+
+        <div class="panel" id="infoPanel">
+
+            <div class="panel-header">Place Details</div>
+
+            <div class="panel-content" id="infoContent">
+
+                <!-- Place details will be populated here -->
+
+                <div class="search-container">
+
+                    <input type="text" id="searchInput" placeholder="Enter location">
+
+                    <button id="searchButton">Search</button>
+
+                    <button id="clearButton">Clear</button>
+
+                </div>
+
+                <!-- Nearby places list -->
+
+                <div id="nearbyPlacesList" class="hidden"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+ 
+
+    <script>
+
+      var map = L.map('map');
+
+      var userMarker; // To store the user's marker
+
+     
+
+      map.setView([51.505, -0.09], 13);
+
+ 
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+          maxZoom: 19,
+
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+
+      }).addTo(map);
+
+ 
+
+      navigator.geolocation.watchPosition(success, error);
+
+      let marker, circle, zoomed;
+
+ 
+
+      function success(pos){
+
+          const lat = pos.coords.latitude;
+
+          const lng = pos.coords.longitude;
+
+          const accuracy = pos.coords.accuracy;
+
+ 
+
+          // Clear existing user's marker
+
+          if (userMarker) {
+
+              map.removeLayer(userMarker);
+
+          }
+
+ 
+
+          userMarker = L.marker([lat, lng]).addTo(map);
+
+ 
+
+          if(marker){
+
+              map.removeLayer(marker);
+
+              map.removeLayer(circle);
+
+          }
+
+ 
+
+          marker = L.marker([lat, lng]).addTo(map);
+
+          circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+ 
+
+          if(zoomed){
+
+              zoomed = map.fitBounds(circle.getBounds());
+
+          }
+
+ 
+
+          map.setView([lat, lng]);
+
+      }
+
+ 
+
+      function error(err){
+
+          if(err === 1){
+
+              alert("Please allow geolocation access");
+
+          } else {
+
+              alert("Cannot get current location");
+
+          }
+
+      }
+
+ 
+
+      // Function to display nearby places in the panel
+
+      function displayNearbyPlaces(places) {
+
+          const nearbyPlacesList = document.getElementById('nearbyPlacesList');
+
+          nearbyPlacesList.innerHTML = ''; // Clear previous list items
+
+ 
+
+          places.forEach(place => {
+
+              const placeItem = document.createElement('div');
+
+              placeItem.className = 'nearby-place';
+
+              placeItem.textContent = place.name; // Assuming each place has a 'name' property
+
+              nearbyPlacesList.appendChild(placeItem);
+
+          });
+
+ 
+
+          // Show the nearby places list
+
+          nearbyPlacesList.classList.add('visible');
+
+      }
+
+ 
+
+      // Modify your search button click event handler to include the nearby places
+
+      document.getElementById('searchButton').addEventListener('click', function () {
+
+        const query = document.getElementById('searchInput').value;
+
+ 
+
+        // Define the bounding box coordinates for Kathmandu Valley
+
+        const kathmanduValleyBounds = '85.2154,27.5142,85.4685,27.7465';
+
+ 
+
+        // Use the Nominatim geocoding service to search for the location within Kathmandu Valley
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&viewbox=${kathmanduValleyBounds}`)
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data && data.length > 0) {
+
+                    const result = data[0];
+
+                    const lat = parseFloat(result.lat);
+
+                    const lon = parseFloat(result.lon);
+
+ 
+
+                    // Clear existing marker
+
+                    if (marker) {
+
+                        map.removeLayer(marker);
+
+                    }
+
+ 
+
+                    // Add a new marker for the search result
+
+                    marker = L.marker([lat, lon]).addTo(map);
+
+                    map.setView([lat, lon], 13);
+
+ 
+
+                    // Create a routing control and add it to the map
+
+                    if (routingControl) {
+
+                        map.removeControl(routingControl);
+
+                    }
+
+ 
+
+                    routingControl = L.Routing.control({
+
+                        waypoints: [
+
+                            L.latLng(userMarker.getLatLng()), // User's location
+
+                            L.latLng(lat, lon) // Searched location
+
+                        ],
+
+                        routeWhileDragging: true
+
+                    }).addTo(map);
+
+ 
+
+                    // Simulate nearby places data (you can replace this with your actual data)
+
+                    const nearbyPlaces = [
+
+                        { name: 'Place 1' },
+
+                        { name: 'Place 2' },
+
+                        { name: 'Place 3' },
+
+                        // Add more nearby places as needed
+
+                    ];
+
+ 
+
+                    // Display the nearby places in the panel
+
+                    displayNearbyPlaces(nearbyPlaces);
+
+                } else {
+
+                    alert('Location not found within Kathmandu Valley.');
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error('Error:', error);
+
+            });
+
+    });
+
+ 
+
+      // Modify your clear button click event handler to clear the nearby places
+
+      document.getElementById('clearButton').addEventListener('click', function () {
+
+        document.getElementById('searchInput').value = ''; // Clear the input
+
+        closeInfoPanel(); // Close the panel
+
+ 
+
+        // Clear the nearby places list
+
+        const nearbyPlacesList = document.getElementById('nearbyPlacesList');
+
+        nearbyPlacesList.innerHTML = '';
+
+        nearbyPlacesList.classList.remove('visible'); // Hide the list
+
+    });
+
+  </script>
+
+</body>
+
+</html>
