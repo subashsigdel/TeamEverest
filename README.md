@@ -42,7 +42,6 @@ Super Admin has access to comprehensive data, including parking history and deta
 
 7. Profit Generation
 "Open Park" aims to create a win-win situation:
-
 House owners can monetize their parking spaces.
 End customers can find convenient parking solutions.
 The Super Admin earns revenue through commissions.
@@ -56,11 +55,14 @@ To run the "Open Park" project, follow these steps:
 ---
 # Clone the project repository:
 ---
-bash
+open bash
+---
 git clone https://github.com/subashsigdel/TeamEverest
 ---
-Install project dependencies by running the following command in your terminal:
+# Install project dependencies by running the following command in your terminal:
+---
 pip install -r requirements.txt
+---
 Run the project using the following command:
 ---
 python manage.py runserver
