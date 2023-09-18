@@ -1,14 +1,19 @@
-TeamEverest - Project "Open Park" -- UDHYAM HACKATHON
-Project Description
+# TeamEverest - Project "Open Park" -- UDHYAM HACKATHON
+---
+# Project Description
+---
 "Open Park" is a web-based application aimed at tackling the challenges of urban parking systems, with a primary focus on addressing parking issues in areas like Kathmandu. The project is designed to cater to three distinct types of users:
-
-Super Admin
+---
+# Super Admin
+---
 This privileged user has comprehensive access to all functions within the application and oversees the entire system's operation and data management.
-
-House Owners
+---
+# House Owners
+---
 House owners can create profiles within the application, providing details about their available parking spaces. They have the opportunity to rent out their parking spaces to end customers, thereby utilizing their private property and earning income.
-
-End Customers
+---
+# End Customers
+---
 End customers are users seeking parking solutions. They can use the application to:
 
 Search for available parking spaces in specific areas.
@@ -42,22 +47,21 @@ House owners can monetize their parking spaces.
 End customers can find convenient parking solutions.
 The Super Admin earns revenue through commissions.
 The success of this application relies on effective collaboration between house owners, end customers, and the Super Admin, ultimately making urban parking more accessible and efficient in areas like Kathmandu.
-
-Run Project
+---
+# Run Project
+---
 To run the "Open Park" project, follow these steps:
-
-Install Django in your system.
-
-Clone the project repository:
-
+---
+# Install Django in your system.
+---
+# Clone the project repository:
+---
 bash
-Copy code
 git clone https://github.com/subashsigdel/TeamEverest
+---
 Install project dependencies by running the following command in your terminal:
-
-Copy code
 pip install -r requirements.txt
 Run the project using the following command:
-
-Copy code
+---
 python manage.py runserver
+--
