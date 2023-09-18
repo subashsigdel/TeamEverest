@@ -1,46 +1,63 @@
-# TeamEverest
-# Project Discriptions
----
-OPEN PARK
----
+TeamEverest - Project "Open Park" -- UDHYAM HACKATHON
+Project Description
+"Open Park" is a web-based application aimed at tackling the challenges of urban parking systems, with a primary focus on addressing parking issues in areas like Kathmandu. The project is designed to cater to three distinct types of users:
 
-"Open Park" is a web-based application designed to address the challenges of urban parking systems, with a primary focus on solving parking issues in areas like Kathmandu. The project comprises three distinct user panels and caters to three types of users:
+Super Admin
+This privileged user has comprehensive access to all functions within the application and oversees the entire system's operation and data management.
 
-Super Admin: This privileged user has comprehensive access to all functions within the application. They oversee the entire system's operation and data management.
+House Owners
+House owners can create profiles within the application, providing details about their available parking spaces. They have the opportunity to rent out their parking spaces to end customers, thereby utilizing their private property and earning income.
 
-House Owners: House owners can create profiles within the application, adding details about their available parking spaces. They have the opportunity to rent out their parking spaces to end customers, thus utilizing their private property and earning income.
+End Customers
+End customers are users seeking parking solutions. They can use the application to:
 
-End Customers: End customers are the users seeking parking solutions. They can use the application to search for available parking spaces, either by browsing a map or specifying their location. They can book parking spaces for a specified duration, receive a QR code for confirmation, and make payments through the app.
-
+Search for available parking spaces in specific areas.
+Book parking spaces for desired durations.
+Receive QR codes for access.
+Make payments securely through the app.
 Key features and functionalities of "Open Park" include:
 
-Search and Booking: End customers can search for parking spaces in specific areas, book them for desired durations, and receive QR codes for access.
+1. Search and Booking
+End customers can easily search for parking spaces in specific areas, book them for their desired durations, and receive QR codes for access.
 
-Feedback System: Users can provide feedback on parking spaces, allowing continuous improvement and quality control.
+2. Feedback System
+Users can provide feedback on parking spaces, allowing for continuous improvement and quality control.
 
-Parking management: Beside all the features and advantages the main solution and main funnction of this project is managing unmanaged parking of urban areas.
+3. Parking Management
+One of the primary functions of the project is managing previously unmanaged parking spaces in urban areas.
 
-Payment Integration: The application facilitates secure payments for parking fees, streamlining the transaction process.
+4. Payment Integration
+The application facilitates secure payments for parking fees, streamlining the transaction process for both house owners and end customers.
 
-Commission Model: House owners pay a commission fee to the Super Admin for using the application, ensuring a source of revenue for the platform.
+5. Commission Model
+House owners pay a commission fee to the Super Admin for using the application, ensuring a source of revenue for the platform.
 
-Data Management: Super Admin can access comprehensive data, including parking history and details of house owners, enabling efficient management of the application.
+6. Data Management
+Super Admin has access to comprehensive data, including parking history and details of house owners, enabling efficient management of the application.
 
-Profit Generation: "Open Park" aims to create a win-win situation: house owners monetize their parking spaces, end customers find convenient parking, and the Super Admin earns revenue through commissions.
+7. Profit Generation
+"Open Park" aims to create a win-win situation:
 
+House owners can monetize their parking spaces.
+End customers can find convenient parking solutions.
+The Super Admin earns revenue through commissions.
+The success of this application relies on effective collaboration between house owners, end customers, and the Super Admin, ultimately making urban parking more accessible and efficient in areas like Kathmandu.
 
-The application's success relies on effective collaboration between house owners, end customers, and the Super Admin, making urban parking more accessible and efficient in areas like Kathmandu.
+Run Project
+To run the "Open Park" project, follow these steps:
 
+Install Django in your system.
 
+Clone the project repository:
 
----
-#Run Project
-
-To run Project install Django in your system then
-# Frist clone thi repo:
+bash
+Copy code
 git clone https://github.com/subashsigdel/TeamEverest
-# run in commmand:
-pip install -r requirements.txt
-# Then
-python manage.py runserver
+Install project dependencies by running the following command in your terminal:
 
+Copy code
+pip install -r requirements.txt
+Run the project using the following command:
+
+Copy code
+python manage.py runserver
